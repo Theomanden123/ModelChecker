@@ -8,6 +8,8 @@ public class World {
     private ArrayList<Relation> relations;
 
     public World(String name) {
+        interpretation = new ArrayList<Formula>();
+        relations = new ArrayList<Relation>();
         this.name = name;
     }
 
