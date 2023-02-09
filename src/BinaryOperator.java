@@ -16,7 +16,7 @@ public class BinaryOperator extends Formula {
     }
 
     public String toString() {
-        return "(" + left + "," + right + ")";
+        return operator + "(" + left + "," + right + ")";
     }
     
 }
