@@ -3,8 +3,6 @@ public class Main {
 
     public static void main( String[] args ) {
 
-        System.out.println("FUCK DEN KÆRTE");
-
         // Frame
 
         World s = new World("s");
