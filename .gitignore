@@ -1,0 +1,7 @@
+src/Formula.class
+src/Literal.class
+src/Main.class
+src/Not.class
+src/Relation.class
+src/UnaryOperator.class
+src/World.class
