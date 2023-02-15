@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Main {
 
 
@@ -6,8 +8,9 @@ public class Main {
         String test = "Diamond(Imp(p,q))";
 
         Formula f = Parser.getFormulaFromString(test);
-
-        System.out.println(f.getClass());
+        ArrayList<Formula> subf = new ArrayList<>();
+        Label.getSubformulas(f, subf);
+        Parser.subformulasToString(subf);
 
     }
 

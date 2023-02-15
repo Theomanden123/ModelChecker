@@ -1,6 +1,8 @@
+import java.util.ArrayList;
+
 public class Parser {
 
-    static public Formula getFormulaFromString(String input) {
+    public static Formula getFormulaFromString(String input) {
 
         int index = input.indexOf("(");
 
@@ -55,7 +57,7 @@ public class Parser {
 
     }
 
-    static private String[] getArguments(String input) {
+    private static String[] getArguments(String input) {
 
         String[] output = new String[2];
         int parenthesisCount = -1;
@@ -84,6 +86,14 @@ public class Parser {
         }
 
         return output;
+
+    }
+
+    public static void subformulasToString(ArrayList<Formula> subformulas) {
+
+        for (Formula formula : subformulas) {
+            System.out.println(formula.toString());
+        }
 
     }
     
