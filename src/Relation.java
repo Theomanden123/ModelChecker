@@ -14,4 +14,8 @@ public class Relation {
         return src;
     }
 
+    public World getDest() {
+        return dest;
+    }
+
 }

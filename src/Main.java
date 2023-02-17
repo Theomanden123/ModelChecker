@@ -7,7 +7,7 @@ public class Main {
 
         Frame frame = Controller.buildExampleFrame();
 
-        String test = "Diamond(p)";
+        String test = "Box(p)";
         Formula f = Parser.getFormulaFromString(test);
         Checker.labelAlgorithm(frame, f);
         Parser.printAllWorldLabels(frame);

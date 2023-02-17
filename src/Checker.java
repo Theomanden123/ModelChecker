@@ -37,7 +37,7 @@ public class Checker {
         }
 
         if (formula instanceof Box) {
-
+            checkBox(frame, formula);
         }
 
     }
@@ -177,17 +177,20 @@ public class Checker {
 
     private static void checkBox(Frame frame, Formula formula) {
         Box box = (Box) formula;
-        Not negative = new Not(box.getFormula());
-        Diamond negativeDiamond = new Diamond(negative);
 
         for (World world : frame.getWorlds()) {
             ArrayList<Formula> labels = world.getLabels();
+            int counter = 0;
             for (Relation relation : world.getOutgoingRelations()) {
-
+                if (relation.getDest().getLabels().contains(box.getFormula())) {
+                    counter++;
+                }
             }
-            if (labels.contains(negativeDiamond)) {
-
+            if (world.getOutgoingRelations().size() != 0 &&
+                world.getOutgoingRelations().size() == counter ) {
+                labels.add(box);
             }
+            
         }
 
     }
