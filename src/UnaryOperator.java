@@ -9,6 +9,10 @@ public class UnaryOperator extends Formula {
     public Formula getFormula() {
         return formula;
     }
+    
+    public void setFormula(Formula formula) {
+        this.formula = formula;
+    }
 
     public String toString() {
         return operator + "(" + formula + ")";

@@ -14,8 +14,41 @@ public class Checker {
             labelAlgorithm(frame, f.getFormula());
         }
 
-        if (formula instanceof Literal) {
+        checkPropositions(frame, formula);
+        checkAnd(frame, formula);
+        checkOr(frame, formula);
+        checkImp(frame, formula);
+        checkEquiv(frame, formula);
 
+
+        if (formula instanceof Diamond) {
+
+        }
+
+        if (formula instanceof Box) {
+
+        }
+
+    }
+
+    public static void getSubformulas(Formula formula, ArrayList<Formula> subformulas) {
+
+        subformulas.add(formula);
+        
+        if (formula instanceof BinaryOperator) {
+            BinaryOperator f = (BinaryOperator) formula;
+            getSubformulas(f.getLeft(), subformulas);
+            getSubformulas(f.getRight(), subformulas);
+
+        } else if (formula instanceof UnaryOperator) {
+            UnaryOperator f = (UnaryOperator) formula;
+            getSubformulas(f.getFormula(), subformulas);
+        }
+
+    }
+    
+    private static void checkPropositions(Frame frame, Formula formula) {
+        if (formula instanceof Literal) {
             for (World world : frame.getWorlds()) {
                 if (world.getInterpretation().contains(formula)) {
                     world.addLabel(formula);
@@ -26,7 +59,9 @@ public class Checker {
             }
 
         }
+    }
 
+    private static void checkAnd(Frame frame, Formula formula) {
         if (formula instanceof And)  {
 
             BinaryOperator f = (BinaryOperator) formula;
@@ -39,7 +74,9 @@ public class Checker {
             }
 
         }
+    }
 
+    private static void checkOr(Frame frame, Formula formula) {
         if (formula instanceof Or) {
 
             BinaryOperator f = (BinaryOperator) formula;
@@ -52,11 +89,14 @@ public class Checker {
             }
 
         }
+    }
 
+    private static void checkImp(Frame frame, Formula formula) {
         if (formula instanceof Imp) {
 
             BinaryOperator f = (BinaryOperator) formula;
 
+            /* 
             Formula right;
             if (f.getRight() instanceof Not) {
                 Not r = (Not) f.getRight();
@@ -64,6 +104,8 @@ public class Checker {
             } else {
                 right = new Not(f.getRight());
             }
+            */
+            Not right = new Not(f.getRight());
 
             for (World world : frame.getWorlds()) {
                 ArrayList<Formula> labels = world.getLabels();
@@ -74,6 +116,9 @@ public class Checker {
 
         }
 
+    }
+
+    private static void checkEquiv(Frame frame, Formula formula) {
         if (formula instanceof Equiv) {
 
             BinaryOperator f = (BinaryOperator) formula;
@@ -106,58 +151,13 @@ public class Checker {
             }
 
         }
+    }
 
-        if (formula instanceof Diamond) {
-
-        }
-
-        if (formula instanceof Box) {
-
-        }
+    private static void checkDiamond(Frame frame, Formula formula) {
 
     }
 
-    public static void getSubformulas(Formula formula, ArrayList<Formula> subformulas) {
-
-        subformulas.add(formula);
-        
-        if (formula instanceof BinaryOperator) {
-            BinaryOperator f = (BinaryOperator) formula;
-            getSubformulas(f.getLeft(), subformulas);
-            getSubformulas(f.getRight(), subformulas);
-
-        } else if (formula instanceof UnaryOperator) {
-            UnaryOperator f = (UnaryOperator) formula;
-            getSubformulas(f.getFormula(), subformulas);
-        }
-
-    }
-    
-    public void checkPropositions(Frame frame) {
-        
-    }
-
-    public void checkAnd() {
-
-    }
-
-    public void checkOr() {
-
-    }
-
-    public void checkImp() {
-
-    }
-
-    public void checkEquiv() {
-
-    }
-
-    public void checkDiamond() {
-
-    }
-
-    public void checkBox() {
+    private static void checkBox(Frame frame, Formula formula) {
 
     }
 

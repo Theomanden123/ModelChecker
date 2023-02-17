@@ -7,7 +7,7 @@ public class Main {
 
         Frame frame = Controller.buildExampleFrame();
 
-        String test = "Equiv(Not(p),Not(q))";
+        String test = "Imp(p,Not(Not(q)))";
         Formula f = Parser.getFormulaFromString(test);
         Checker.labelAlgorithm(frame, f);
         Parser.printAllWorldLabels(frame);
