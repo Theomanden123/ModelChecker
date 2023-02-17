@@ -12,15 +12,21 @@ public class Parser {
         }
 
         String operator = input.substring(0, index);
-        String rest = input.substring(index + 1, input.length());
-        String[] arguments = getArguments(rest);
+        String argument = input.substring(index + 1, input.length());
+        String[] arguments = getArguments(argument);
 
         Formula formula = null;
 
         switch (operator) {
 
         case "Not":
-            formula = new Not(getFormulaFromString(rest));
+            Formula f = getFormulaFromString(argument);
+            if (f instanceof Not) {
+                Not form = (Not) f;
+                formula = form.getFormula();
+            } else {
+                formula = new Not(getFormulaFromString(argument));
+            }
             break;
 
         case "And":
@@ -44,11 +50,11 @@ public class Parser {
             break;
 
         case "Diamond":
-            formula = new Diamond(getFormulaFromString(rest));
+            formula = new Diamond(getFormulaFromString(argument));
             break;
 
         case "Box":
-            formula = new Box(getFormulaFromString(rest));
+            formula = new Box(getFormulaFromString(argument));
             break;
 
         }

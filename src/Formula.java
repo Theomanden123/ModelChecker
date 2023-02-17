@@ -6,7 +6,6 @@ public class Formula {
 
     }
 
-    
     @Override
     public boolean equals(Object obj) {
         Formula f = (Formula) obj;

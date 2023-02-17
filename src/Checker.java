@@ -96,7 +96,6 @@ public class Checker {
 
             BinaryOperator f = (BinaryOperator) formula;
 
-            /* 
             Formula right;
             if (f.getRight() instanceof Not) {
                 Not r = (Not) f.getRight();
@@ -104,8 +103,6 @@ public class Checker {
             } else {
                 right = new Not(f.getRight());
             }
-            */
-            Not right = new Not(f.getRight());
 
             for (World world : frame.getWorlds()) {
                 ArrayList<Formula> labels = world.getLabels();
