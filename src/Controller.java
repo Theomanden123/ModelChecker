@@ -28,8 +28,8 @@ public class Controller {
         s.addIntepretation(p);
         s.addIntepretation(q);
 
-        t.addIntepretation(q);
-        t.addIntepretation(notp);
+        t.addIntepretation(p);
+        t.addIntepretation(notq);
 
         u.addIntepretation(p);
         u.addIntepretation(notq);

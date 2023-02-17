@@ -152,6 +152,10 @@ public class Checker {
 
     private static void checkDiamond(Frame frame, Formula formula) {
         Diamond diamond = (Diamond) formula;
+        
+        //Not negative = new Not(diamond.getFormula());
+        //Diamond negativeDiamond = new Diamond(negative);
+
         for (World world : frame.getWorlds()) {
             ArrayList<Formula> labels = world.getLabels();
             if (labels.contains(diamond.getFormula())) {
@@ -159,13 +163,32 @@ public class Checker {
                 for (Relation relation : world.getIngoingRelations()) {
                     World worldSrc = relation.getSrc();
                     System.out.println(worldSrc.getWorldName() + " will have diamond");
-                    worldSrc.addLabel(diamond);
+                    if (!worldSrc.getLabels().contains(diamond)) { worldSrc.addLabel(diamond); }
                 }
-            }
+            } /*else {
+                for (Relation relation : world.getIngoingRelations()) {
+                    World worldSrc = relation.getSrc();
+                    System.out.println(worldSrc.getWorldName() + " will have not-diamond");
+                    if (!worldSrc.getLabels().contains(negativeDiamond)) { worldSrc.addLabel(negativeDiamond); }
+                }
+            }*/
         }
     }
 
     private static void checkBox(Frame frame, Formula formula) {
+        Box box = (Box) formula;
+        Not negative = new Not(box.getFormula());
+        Diamond negativeDiamond = new Diamond(negative);
+
+        for (World world : frame.getWorlds()) {
+            ArrayList<Formula> labels = world.getLabels();
+            for (Relation relation : world.getOutgoingRelations()) {
+
+            }
+            if (labels.contains(negativeDiamond)) {
+
+            }
+        }
 
     }
 

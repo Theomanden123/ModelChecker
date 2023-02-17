@@ -30,6 +30,10 @@ public class World {
         ingoingRelations.add(relation);
     }
 
+    public ArrayList<Relation> getOutgoingRelations() {
+        return outgoingRelations;
+    }
+
     public ArrayList<Relation> getIngoingRelations() {
         return ingoingRelations;
     }
