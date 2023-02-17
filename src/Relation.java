@@ -6,7 +6,12 @@ public class Relation {
     public Relation(World src, World dest) {
         this.src = src;
         this.dest = dest;
-        src.addRelation(this);
+        src.addOutgoingRelation(this);
+        dest.addIngoingRelation(this);
+    }
+
+    public World getSrc() {
+        return src;
     }
 
 }

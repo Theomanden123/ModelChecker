@@ -5,12 +5,14 @@ public class World {
     private String name;
 
     private ArrayList<Formula> interpretation;
-    private ArrayList<Relation> relations;
+    private ArrayList<Relation> outgoingRelations;
+    private ArrayList<Relation> ingoingRelations;
     private ArrayList<Formula> labels;
 
     public World(String name) {
         interpretation = new ArrayList<Formula>();
-        relations = new ArrayList<Relation>();
+        outgoingRelations = new ArrayList<Relation>();
+        ingoingRelations = new ArrayList<Relation>();
         labels = new ArrayList<Formula>();
         this.name = name;
     }
@@ -20,8 +22,16 @@ public class World {
     }
 
 
-    public void addRelation(Relation relation) {
-        relations.add(relation);
+    public void addOutgoingRelation(Relation relation) {
+        outgoingRelations.add(relation);
+    }
+
+    public void addIngoingRelation(Relation relation) {
+        ingoingRelations.add(relation);
+    }
+
+    public ArrayList<Relation> getIngoingRelations() {
+        return ingoingRelations;
     }
 
     public void addLabel(Formula formula) {
