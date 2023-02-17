@@ -7,7 +7,7 @@ public class Main {
 
         Frame frame = Controller.buildExampleFrame();
 
-        String test = "And(p,Not(q))";
+        String test = "Diamond(p)";
         Formula f = Parser.getFormulaFromString(test);
         Checker.labelAlgorithm(frame, f);
         Parser.printAllWorldLabels(frame);

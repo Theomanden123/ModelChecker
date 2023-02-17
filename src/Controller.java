@@ -16,8 +16,6 @@ public class Controller {
 
         new Relation(s, u);
         new Relation(s, t);
-        new Relation(t, s);
-        new Relation(u, s);
 
         // Model
 
