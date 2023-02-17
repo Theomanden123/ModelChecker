@@ -5,12 +5,18 @@ public class Main {
 
     public static void main( String[] args ) {
 
-        String test = "Diamond(Imp(p,q))";
+        Frame frame = Controller.buildExampleFrame();
 
+        String test = "Equiv(Not(p),Not(q))";
         Formula f = Parser.getFormulaFromString(test);
-        ArrayList<Formula> subf = new ArrayList<>();
-        Label.getSubformulas(f, subf);
-        Parser.subformulasToString(subf);
+        Checker.labelAlgorithm(frame, f);
+        Parser.printAllWorldLabels(frame);
+
+        //ArrayList<Formula> subf = new ArrayList<>();
+        //Label.getSubformulas(f, subf);
+        //Parser.subformulasToString(subf);
+
+
 
     }
 

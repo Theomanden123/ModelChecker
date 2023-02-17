@@ -1,6 +1,6 @@
 public class Controller {
     
-    public Frame buildExampleFrame() {
+    public static Frame buildExampleFrame() {
         
         // Frame
 

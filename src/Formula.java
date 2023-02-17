@@ -5,5 +5,21 @@ public class Formula {
     public Formula() {
 
     }
+
+    
+    @Override
+    public boolean equals(Object obj) {
+        Formula f = (Formula) obj;
+        if (this.toString().equals(f.toString())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+    
     
 }

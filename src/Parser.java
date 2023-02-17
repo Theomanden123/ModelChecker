@@ -96,5 +96,16 @@ public class Parser {
         }
 
     }
+
+    public static void printAllWorldLabels(Frame frame) {
+        ArrayList<World> worlds = frame.getWorlds();
+        for (World world : worlds) {
+            ArrayList<Formula> labels = world.getLabels();
+            System.out.println(world.getWorldName());
+            for (Formula formula : labels) {
+                System.out.println(formula);
+            }
+        }
+    }
     
 }

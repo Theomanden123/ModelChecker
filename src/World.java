@@ -6,7 +6,6 @@ public class World {
 
     private ArrayList<Formula> interpretation;
     private ArrayList<Relation> relations;
-
     private ArrayList<Formula> labels;
 
     public World(String name) {
@@ -20,8 +19,25 @@ public class World {
         interpretation.add(formula);
     }
 
+
     public void addRelation(Relation relation) {
         relations.add(relation);
+    }
+
+    public void addLabel(Formula formula) {
+        labels.add(formula);
+    }
+
+    public ArrayList<Formula> getInterpretation() {
+        return interpretation;
+    }
+
+    public ArrayList<Formula> getLabels() {
+        return labels;
+    }
+
+    public String getWorldName() {
+        return name;
     }
 
 }
