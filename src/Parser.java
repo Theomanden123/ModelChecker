@@ -95,23 +95,4 @@ public class Parser {
 
     }
 
-    public static void subformulasToString(ArrayList<Formula> subformulas) {
-
-        for (Formula formula : subformulas) {
-            System.out.println(formula.toString());
-        }
-
-    }
-
-    public static void printAllWorldLabels(Frame frame) {
-        ArrayList<World> worlds = frame.getWorlds();
-        for (World world : worlds) {
-            ArrayList<Formula> labels = world.getLabels();
-            System.out.println(world.toString());
-            for (Formula formula : labels) {
-                System.out.println(formula);
-            }
-        }
-    }
-
 }
