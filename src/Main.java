@@ -5,12 +5,8 @@ public class Main {
 
     public static void main( String[] args ) {
 
-        Frame frame = Controller.buildExampleFrame();
-
-        String test = "Box(p)";
-        Formula f = Parser.getFormulaFromString(test);
-        Checker.labelAlgorithm(frame, f);
-        Parser.printAllWorldLabels(frame);
+        Frame frame = Controller.buildFrame();
+        //Controller.runModelChecker(frame);
 
         //ArrayList<Formula> subf = new ArrayList<>();
         //Label.getSubformulas(f, subf);

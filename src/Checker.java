@@ -159,10 +159,8 @@ public class Checker {
         for (World world : frame.getWorlds()) {
             ArrayList<Formula> labels = world.getLabels();
             if (labels.contains(diamond.getFormula())) {
-                System.out.println(world.getWorldName() + " has formula");
                 for (Relation relation : world.getIngoingRelations()) {
                     World worldSrc = relation.getSrc();
-                    System.out.println(worldSrc.getWorldName() + " will have diamond");
                     if (!worldSrc.getLabels().contains(diamond)) { worldSrc.addLabel(diamond); }
                 }
             } /*else {
@@ -194,5 +192,16 @@ public class Checker {
         }
 
     }
+
+    public static ArrayList<World> getValidWorlds(Frame frame, Formula formula) {
+        ArrayList<World> validWorlds = new ArrayList<World>();
+        for (World world : frame.getWorlds()) {
+            ArrayList<Formula> labels = world.getLabels();
+            if (labels.contains(formula)) {
+                validWorlds.add(world);
+            }
+        }
+        return validWorlds;
+    }  
 
 }

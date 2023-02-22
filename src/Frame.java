@@ -15,5 +15,14 @@ public class Frame {
     public ArrayList<World> getWorlds() {
         return worlds;
     }
+
+    public World getWorldFromName(String name) {
+        for (World world : worlds) {
+            if (world.getWorldName().equals(name)) {
+                return world;
+            }
+        }
+        return null;
+    }
     
 }
