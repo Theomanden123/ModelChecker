@@ -22,13 +22,19 @@ public class Command {
                 break;
         } 
 
-        System.out.print("Formula: "); input = scanner.nextLine();
+        while (true) {
 
-        Formula formula = Parser.getFormulaFromString(input);
-        Checker.label(frame, formula);
-        ArrayList<World> worlds = frame.getModellingWorlds(formula);
+            System.out.print("Formula: "); input = scanner.nextLine();
 
-        System.out.println(formula.toString() + " is true at " + worlds.toString());
+            if (input.toUpperCase().equals("END")) { break; }
+
+            Formula formula = Parser.getFormulaFromString(input);
+            Checker.label(frame, formula);
+            ArrayList<World> worlds = frame.getModellingWorlds(formula);
+
+            System.out.println(formula.toString() + " is true at " + worlds.toString());
+
+        }
 
         scanner.close();
     }
@@ -87,6 +93,17 @@ public class Command {
             }
         }
         return worlds;
+    }
+
+    public static void printAllWorldLabels(Frame frame) {
+        ArrayList<World> worlds = frame.getWorlds();
+        for (World world : worlds) {
+            ArrayList<Formula> labels = world.getLabels();
+            System.out.println(world.toString());
+            for (Formula formula : labels) {
+                System.out.println(formula);
+            }
+        }
     }
     
 }

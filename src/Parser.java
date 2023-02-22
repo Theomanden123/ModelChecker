@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Parser {
 
     public static Formula getFormulaFromString(String input) {
