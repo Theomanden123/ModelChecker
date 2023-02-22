@@ -107,11 +107,11 @@ public class Parser {
         ArrayList<World> worlds = frame.getWorlds();
         for (World world : worlds) {
             ArrayList<Formula> labels = world.getLabels();
-            System.out.println(world.getWorldName());
+            System.out.println(world.toString());
             for (Formula formula : labels) {
                 System.out.println(formula);
             }
         }
     }
-    
+
 }

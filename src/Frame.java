@@ -8,6 +8,10 @@ public class Frame {
         worlds = new ArrayList<World>();
     }
 
+    public Frame(ArrayList<World> worlds) {
+        this.worlds = worlds;
+    }    
+
     public void addWorld(World world) {
         worlds.add(world);
     }
@@ -18,11 +22,22 @@ public class Frame {
 
     public World getWorldFromName(String name) {
         for (World world : worlds) {
-            if (world.getWorldName().equals(name)) {
+            if (world.toString().equals(name)) {
                 return world;
             }
         }
         return null;
     }
+
+    public ArrayList<World> getModellingWorlds(Formula formula) {
+        ArrayList<World> list = new ArrayList<World>();
+        for (World world : worlds) {
+            ArrayList<Formula> labels = world.getLabels();
+            if (labels.contains(formula)) {
+                list.add(world);
+            }
+        }
+        return list;
+    }  
     
 }

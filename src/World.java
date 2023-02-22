@@ -17,7 +17,7 @@ public class World {
         this.name = name;
     }
 
-    public void addIntepretation(Formula formula) {
+    public void addLiteral(Formula formula) {
         interpretation.add(formula);
     }
 
@@ -50,7 +50,8 @@ public class World {
         return labels;
     }
 
-    public String getWorldName() {
+    @Override
+    public String toString() {
         return name;
     }
 
