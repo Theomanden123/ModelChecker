@@ -17,7 +17,7 @@ public class World {
         this.name = name;
     }
 
-    public void addLiteral(Formula formula) {
+    public void addProposition(Formula formula) {
         interpretation.add(formula);
     }
 

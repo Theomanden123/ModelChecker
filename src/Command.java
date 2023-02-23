@@ -16,6 +16,9 @@ public class Command {
             case "Sunshine":
                 frame = Constructor.frameSunshine();
                 break;
+            case "Alphabet":
+                frame = Constructor.frameAlphabet();
+                break;
             case "New":
                 ArrayList<World> worlds = queryUser(scanner);
                 frame = Constructor.frameMadeByUser(worlds);
@@ -28,7 +31,7 @@ public class Command {
 
             if (input.toUpperCase().equals("END")) { break; }
 
-            Formula formula = Parser.getFormulaFromString(input);
+            Formula formula = Parser.getFormulaFromString(frame, input);
             Checker.label(frame, formula);
             ArrayList<World> worlds = frame.getModellingWorlds(formula);
 
@@ -58,7 +61,7 @@ public class Command {
 
             for (int i = 0; i < input.length; i++) {
                 Literal literal = new Literal(input[i].charAt(0));
-                world.addLiteral(literal);
+                world.addProposition(literal);
                 if (!propositions.contains(literal)) { propositions.add(literal); }
             }
         }
@@ -68,7 +71,7 @@ public class Command {
             for (Formula proposition : propositions) {
                 if (!interpretation.contains(proposition)) { 
                     Not not = new Not(proposition);
-                    world.addLiteral(not); 
+                    world.addProposition(not); 
                 }
             }
         }

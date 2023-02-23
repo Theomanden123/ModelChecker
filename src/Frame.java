@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Frame {
 
+    private ArrayList<Agent> agents;
     private ArrayList<World> worlds;
 
     public Frame() {
@@ -10,7 +11,7 @@ public class Frame {
 
     public Frame(ArrayList<World> worlds) {
         this.worlds = worlds;
-    }    
+    }
 
     public void addWorld(World world) {
         worlds.add(world);
