@@ -141,17 +141,15 @@ public class Checker {
         Box box = (Box) formula;
 
         for (World world : frame.getWorlds()) {
+            Boolean isPresent = true;
             ArrayList<Formula> labels = world.getLabels();
-            int counter = 0;
             for (Relation relation : world.getOutgoingRelations()) {
-                if (relation.getDest().getLabels().contains(box.getFormula())) {
-                    counter++;
+                if (!relation.getDest().getLabels().contains(box.getFormula())) {
+                    isPresent = false;
+                    break;
                 }
             }
-            if (world.getOutgoingRelations().size() != 0 &&
-                world.getOutgoingRelations().size() == counter ) {
-                labels.add(box);
-            }
+            if (isPresent) { labels.add(box); }
         }
     }
 

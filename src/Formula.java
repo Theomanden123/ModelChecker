@@ -2,9 +2,7 @@ public class Formula {
 
     protected String operator;
 
-    public Formula() {
-
-    }
+    public Formula() {}
 
     @Override
     public boolean equals(Object obj) {

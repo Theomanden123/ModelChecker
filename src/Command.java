@@ -58,12 +58,14 @@ public class Command {
         for (World world : worlds) {
             System.out.println("Which propositions are true at " + world.toString());
             String[] input = scanner.nextLine().split(" ");
-
-            for (int i = 0; i < input.length; i++) {
-                Literal literal = new Literal(input[i].charAt(0));
-                world.addProposition(literal);
-                if (!propositions.contains(literal)) { propositions.add(literal); }
+            if (!(input.length == 1 && input[0].equals(" "))) {
+                for (int i = 0; i < input.length; i++) {
+                    Literal literal = new Literal(input[i].charAt(0));
+                    world.addProposition(literal);
+                    if (!propositions.contains(literal)) { propositions.add(literal); }
+                }
             }
+
         }
 
         for (World world : worlds) {

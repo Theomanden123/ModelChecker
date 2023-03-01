@@ -7,8 +7,18 @@ public class Parser {
         int index = input.indexOf("(");
 
         if (index == -1) {
-            Literal literal = new Literal(input.charAt(0));
-            return literal;
+            Formula formula;
+            if (input.equals("true")) {
+                formula = new True();
+                System.out.println("YESSS!!!");
+            } else if (input.equals("false")) {
+                formula = new False();
+                System.out.println("YESSS!!!");
+            } else {
+                formula = new Literal(input.charAt(0));
+            }
+            
+            return formula;
         }
 
         String operator = input.substring(0, index);
