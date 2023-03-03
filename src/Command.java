@@ -19,6 +19,9 @@ public class Command {
             case "Alphabet":
                 frame = Constructor.frameAlphabet();
                 break;
+            case "Distinct":
+                frame = Constructor.frameDistinguishing();
+                break;
             case "New":
                 ArrayList<World> worlds = queryUser(scanner);
                 frame = Constructor.frameMadeByUser(worlds);

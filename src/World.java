@@ -14,6 +14,8 @@ public class World {
         outgoingRelations = new ArrayList<Relation>();
         ingoingRelations = new ArrayList<Relation>();
         labels = new ArrayList<Formula>();
+        Verum t = new Verum();
+        labels.add(t);
         this.name = name;
     }
 

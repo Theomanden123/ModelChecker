@@ -31,6 +31,10 @@ public class Checker {
             checkEquiv(frame, formula);
         }
 
+        if (formula instanceof Not) {
+            checkNot(frame, formula);
+        }
+
         if (formula instanceof Diamond) {
             checkDiamond(frame, formula);
         }
@@ -123,6 +127,15 @@ public class Checker {
         }
     }
 
+    private static void checkNot(Frame frame, Formula formula) {
+        Not not = (Not) formula;
+        for (World world : frame.getWorlds()) {
+            ArrayList<Formula> labels = world.getLabels();
+            if (!labels.contains(not.getFormula())) {
+                labels.add(not);
+            }
+        }
+    }
     private static void checkDiamond(Frame frame, Formula formula) {
         Diamond diamond = (Diamond) formula;
 

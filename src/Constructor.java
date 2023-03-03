@@ -92,6 +92,31 @@ public class Constructor {
         return frame;
     }
 
+
+    public static Frame frameDistinguishing() {
+        Frame frame = new Frame();
+
+        World w1 = new World("w1");
+        World w2 = new World("w2");
+        World w3 = new World("w3");
+        World w4 = new World("w4");
+
+        frame.addWorld(w1);
+        frame.addWorld(w2);
+        frame.addWorld(w3);
+        frame.addWorld(w4);
+
+        new Relation(w1, w2);
+        new Relation(w1, w3);
+
+        new Relation(w2, w2);
+        new Relation(w2, w4);
+        
+        new Relation(w3, w4);
+
+        return frame;
+    }
+
     public static Frame frameMadeByUser(ArrayList<World> worlds) {
         Frame frame = new Frame(worlds);
         return frame;

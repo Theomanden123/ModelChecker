@@ -8,12 +8,10 @@ public class Parser {
 
         if (index == -1) {
             Formula formula;
-            if (input.equals("true")) {
-                formula = new True();
-                System.out.println("YESSS!!!");
-            } else if (input.equals("false")) {
-                formula = new False();
-                System.out.println("YESSS!!!");
+            if (input.contains("Verum")) {
+                formula = new Verum();
+            } else if (input.contains("Falsum")) {
+                formula = new Falsum();
             } else {
                 formula = new Literal(input.charAt(0));
             }
