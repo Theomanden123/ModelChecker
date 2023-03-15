@@ -1,22 +1,19 @@
-import java.util.ArrayList;
-
 public class Knowledge extends UnaryOperator {
 
-    ArrayList<Agent> agents;
+    private Agent agent;
 
     public Knowledge(Agent agent, Formula formula) {
         super(formula);
-        agents = new ArrayList<Agent>();
-        agents.add(agent);
+        this.agent = agent;
         operator = "K";
     }
 
-    public Knowledge(ArrayList<Agent> agents, Formula formula) {
-        super(formula);
-        this.agents = agents;
-        operator = "K";
+    public Agent getAgent() {
+        return agent;
     }
 
-
+    public String toString() {
+        return operator + agent.getName() + "(" + formula + ")";
+    }
     
 }

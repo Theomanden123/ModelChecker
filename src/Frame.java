@@ -6,6 +6,7 @@ public class Frame {
     private ArrayList<World> worlds;
 
     public Frame() {
+        agents = new ArrayList<Agent>();
         worlds = new ArrayList<World>();
     }
 
@@ -41,4 +42,16 @@ public class Frame {
         return list;
     }  
     
+    public void addAgent(Agent agent) {
+        agents.add(agent);
+    }
+
+    public Agent getAgent(String name) {
+        for (Agent agent : agents) {
+            if (agent.getName().equals(name)) {
+                return agent;
+            }
+        }
+        return null;
+    }
 }

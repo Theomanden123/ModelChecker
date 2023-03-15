@@ -1,6 +1,6 @@
 public class UnaryOperator extends Formula {
 
-    private Formula formula;
+    protected Formula formula;
 
     public UnaryOperator(Formula formula) {
         this.formula = formula;

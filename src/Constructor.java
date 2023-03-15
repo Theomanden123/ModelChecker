@@ -5,6 +5,10 @@ public class Constructor {
     public static Frame frameSunshine() {
 
         Frame frame = new Frame();
+        Agent a = new Agent("1");
+        Agent b = new Agent("2");
+        frame.addAgent(a);
+        frame.addAgent(b);
 
         World s = new World("s");
         World t = new World("t");
@@ -14,15 +18,25 @@ public class Constructor {
         frame.addWorld(t);
         frame.addWorld(u);
 
+        Relation r1 = new Relation(s, s);
+        Relation r2 = new Relation(t, t);
+        Relation r3 = new Relation(u, u);
+        Relation r4 = new Relation(s, u);
+        Relation r5 = new Relation(u, s);
+        Relation r6 = new Relation(s, t);
+        Relation r7 = new Relation(t, s);
 
-        new Relation(s, s);
-        new Relation(t, t);
-        new Relation(u, u);
+        r1.addAgent(a);
+        r2.addAgent(a);
+        r3.addAgent(a);
+        r6.addAgent(a);
+        r7.addAgent(a);
 
-        new Relation(s, u);
-        new Relation(u, s);
-        new Relation(s, t);
-        new Relation(t, s);
+        r1.addAgent(b);
+        r2.addAgent(b);
+        r3.addAgent(b);
+        r4.addAgent(b);
+        r5.addAgent(b);
 
         Literal p = new Literal('p');
         Formula notp = new Not(p);
@@ -113,6 +127,49 @@ public class Constructor {
         new Relation(w2, w4);
         
         new Relation(w3, w4);
+
+        return frame;
+    }
+
+    public static Frame framePoker() {
+        Frame frame = new Frame();
+        Agent a = new Agent("a");
+        Agent b = new Agent("b");
+        frame.addAgent(a);
+        frame.addAgent(b);
+
+        World JQ = new World("JQ");
+        World AQ = new World("AQ");
+        World AJ = new World("AJ");
+        World QJ = new World("QJ");
+        World QA = new World("QA");
+        World JA = new World("JA");
+
+        frame.addWorld(JQ);
+        frame.addWorld(AQ);
+        frame.addWorld(AJ);
+        frame.addWorld(QJ);
+        frame.addWorld(QA);
+        frame.addWorld(JA);
+        
+
+        Relation JQAQ = new Relation(JQ, AQ);
+        Relation AQJQ = new Relation(AQ, JQ);
+
+        Relation AQAJ = new Relation(AQ, AJ);
+        Relation AJAQ = new Relation(AJ, AQ);
+
+        Relation AJQJ = new Relation(AJ, QJ);
+        Relation QJAJ = new Relation(QJ, AJ);
+
+        Relation QJQA = new Relation(QJ, QA);
+        Relation QAQJ = new Relation(QA, QJ);
+
+        Relation QAJA = new Relation(QA, JA);
+        Relation JAQA = new Relation(JA, QA);
+
+        Relation JAJQ = new Relation(JA, JQ);
+        Relation JQJA = new Relation(JQ, JA);
 
         return frame;
     }

@@ -23,24 +23,23 @@ public class Parser {
         String argument = input.substring(index + 1, input.length());
         String[] arguments = getArguments(argument);
 
+        Agent agent = null;
+        ArrayList<Agent> group = new ArrayList<Agent>();
+
         if (operator.charAt(0) == 'K') {
-
-            ArrayList<Agent> agents = new ArrayList<Agent>();
-
-            if (operator.charAt(1) == '<') {
-
-                String rest = operator.substring(2, operator.length() - 1);
-
-                String[] agentNames = rest.split(",");
-
-
-
-            } else {
-
-            }
-
+            String name = operator.substring(1, operator.length());
+            agent = frame.getAgent(name);
             operator = "" + operator.charAt(0);
+        }
+        if (operator.charAt(0) == 'E') {
+            String rest = operator.substring(2, operator.length() - 1);
+            String[] names = rest.split(",");
 
+            for (String name : names) {
+                agent = frame.getAgent(name);
+                group.add(agent);
+            }
+            operator = "" + operator.charAt(0);
         }
 
         Formula formula = null;
@@ -86,8 +85,12 @@ public class Parser {
             break;
 
         case "K":
+            formula = new Knowledge(agent, getFormulaFromString(frame, argument));
             break;
 
+        case "E":
+            formula = new Everybody(group, getFormulaFromString(frame, argument));
+            break;
         }
 
         return formula;
