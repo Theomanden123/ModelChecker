@@ -31,7 +31,7 @@ public class Parser {
             agent = frame.getAgent(name);
             operator = "" + operator.charAt(0);
         }
-        if (operator.charAt(0) == 'E') {
+        if (operator.charAt(0) == 'E' || operator.charAt(0) == 'C') {
             String rest = operator.substring(2, operator.length() - 1);
             String[] names = rest.split(",");
 
@@ -90,6 +90,10 @@ public class Parser {
 
         case "E":
             formula = new Everybody(group, getFormulaFromString(frame, argument));
+            break;
+    
+        case "C":
+            formula = new Common(group, getFormulaFromString(frame, argument));
             break;
         }
 

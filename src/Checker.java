@@ -50,6 +50,10 @@ public class Checker {
         if (formula instanceof Everybody) {
             checkEverybody(frame, formula);
         }
+
+        if (formula instanceof Common) {
+            checkCommon(frame, formula);
+        }
     }
     
     private static void checkPropositions(Frame frame, Formula formula) {
@@ -194,20 +198,42 @@ public class Checker {
 
     private static void checkEverybody(Frame frame, Formula formula) {
         Everybody everybody = (Everybody) formula;
+        ArrayList<Knowledge> knows = new ArrayList<Knowledge>();
+
         for (Agent agent : everybody.getGroup()) {
             Knowledge knowledge = new Knowledge(agent, everybody.getFormula());
+            knows.add(knowledge);
             checkKnowledge(frame, knowledge);
         }
+
         for (World world : frame.getWorlds()) {
             ArrayList<Formula> labels = world.getLabels();
             Boolean isPresent = true;
-            for (Agent agent : everybody.getGroup()) {
-                if (!labels.contains("K" + agent.getName() + "(" + everybody.getFormula() + ")")) {
+            for (Knowledge knowledge : knows) {
+                if (!labels.contains(knowledge)) {
                     isPresent = false;
                     break;
                 }
             }
             if (isPresent) { labels.add(everybody); }
         }
+    }
+
+    private static void checkCommon(Frame frame, Formula formula) {
+        Common common = (Common) formula;
+
+        Formula f = common.getFormula();
+
+        for (int i = 0; i < common.getGroup().size(); i++) {
+            Everybody everybody = new Everybody(common.getGroup(), f);
+            checkEverybody(frame, everybody);
+            f = everybody;
+        }
+
+        for (World world : frame.getWorlds()) {
+            ArrayList<Formula> labels = world.getLabels();
+            if (labels.contains(f)) { labels.add(common); }
+        }
+
     }
 }

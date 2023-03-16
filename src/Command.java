@@ -13,14 +13,17 @@ public class Command {
         Frame frame = null;
 
         switch(input) {
-            case "Sunshine":
-                frame = Constructor.frameSunshine();
-                break;
             case "Alphabet":
                 frame = Constructor.frameAlphabet();
                 break;
             case "Distinct":
                 frame = Constructor.frameDistinguishing();
+                break;
+            case "Poker":
+                frame = Constructor.framePoker();
+                break;
+            case "Sunshine":
+                frame = Constructor.frameSunshine();
                 break;
             case "New":
                 ArrayList<World> worlds = queryUser(scanner);

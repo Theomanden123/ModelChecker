@@ -133,8 +133,10 @@ public class Constructor {
 
     public static Frame framePoker() {
         Frame frame = new Frame();
+
         Agent a = new Agent("a");
         Agent b = new Agent("b");
+        
         frame.addAgent(a);
         frame.addAgent(b);
 
@@ -151,25 +153,129 @@ public class Constructor {
         frame.addWorld(QJ);
         frame.addWorld(QA);
         frame.addWorld(JA);
-        
+
+        // Alice: Ace, Queen, Jack
+        Literal aA = new Literal('A');
+        Literal aQ = new Literal('Q');
+        Literal aJ = new Literal('J');
+
+        // Bob: Ace, Queen, Jack
+        Literal bA = new Literal('a');
+        Literal bQ = new Literal('q');
+        Literal bJ = new Literal('j');
+
+        // Negations
+        Formula notaA = new Not(aA);
+        Formula notaQ = new Not(aQ);
+        Formula notaJ = new Not(aJ);
+        Formula notbA = new Not(bA);
+        Formula notbQ = new Not(bQ);
+        Formula notbJ = new Not(bJ);
+
+        // World interpretations
+        JQ.addProposition(aJ);
+        JQ.addProposition(bQ);
+        JQ.addProposition(notaA);
+        JQ.addProposition(notaQ);
+        JQ.addProposition(notbA);
+        JQ.addProposition(notbJ);
+
+        AQ.addProposition(aA);
+        AQ.addProposition(bQ);
+        AQ.addProposition(notaQ);
+        AQ.addProposition(notaJ);
+        AQ.addProposition(notbA);
+        AQ.addProposition(notbJ);
+
+        AJ.addProposition(aA);
+        AJ.addProposition(bJ);
+        AJ.addProposition(notaQ);
+        AJ.addProposition(notaJ);
+        AJ.addProposition(notbA);
+        AJ.addProposition(notbQ);
+
+        QJ.addProposition(aQ);
+        QJ.addProposition(bJ);
+        QJ.addProposition(notaA);
+        QJ.addProposition(notaJ);
+        QJ.addProposition(notbA);
+        QJ.addProposition(notbQ);
+
+        QA.addProposition(aQ);
+        QA.addProposition(bA);
+        QA.addProposition(notaA);
+        QA.addProposition(notaJ);
+        QA.addProposition(notbQ);
+        QA.addProposition(notbJ);
+
+        JA.addProposition(aJ);
+        JA.addProposition(bA);
+        JA.addProposition(notaA);
+        JA.addProposition(notaQ);
+        JA.addProposition(notbQ);
+        JA.addProposition(notbJ);
 
         Relation JQAQ = new Relation(JQ, AQ);
         Relation AQJQ = new Relation(AQ, JQ);
 
+        JQAQ.addAgent(b);
+        AQJQ.addAgent(b);
+
         Relation AQAJ = new Relation(AQ, AJ);
         Relation AJAQ = new Relation(AJ, AQ);
+
+        AQAJ.addAgent(a);
+        AJAQ.addAgent(a);
 
         Relation AJQJ = new Relation(AJ, QJ);
         Relation QJAJ = new Relation(QJ, AJ);
 
+        AJQJ.addAgent(b);
+        QJAJ.addAgent(b);
+
         Relation QJQA = new Relation(QJ, QA);
         Relation QAQJ = new Relation(QA, QJ);
+
+        QJQA.addAgent(a);
+        QAQJ.addAgent(a);
 
         Relation QAJA = new Relation(QA, JA);
         Relation JAQA = new Relation(JA, QA);
 
+        QAJA.addAgent(b);
+        JAQA.addAgent(b);
+
         Relation JAJQ = new Relation(JA, JQ);
         Relation JQJA = new Relation(JQ, JA);
+
+        JAJQ.addAgent(a);
+        JQJA.addAgent(a);
+
+        // Reflexive relations
+        Relation JQJQ = new Relation(JQ, JQ);
+        Relation AQAQ = new Relation(AQ, AQ);
+        Relation AJAJ = new Relation(AJ, AJ);
+        Relation QJQJ = new Relation(QJ, QJ);
+        Relation QAQA = new Relation(QA, QA);
+        Relation JAJA = new Relation(JA, JA);
+
+        JQJQ.addAgent(a);
+        JQJQ.addAgent(b);
+
+        AQAQ.addAgent(a);
+        AQAQ.addAgent(b);
+
+        AJAJ.addAgent(a);
+        AJAJ.addAgent(b);
+
+        QJQJ.addAgent(a);
+        QJQJ.addAgent(b);
+
+        QAQA.addAgent(a);
+        QAQA.addAgent(b);
+
+        JAJA.addAgent(a);
+        JAJA.addAgent(b);
 
         return frame;
     }
