@@ -22,6 +22,10 @@ public class Relation {
         return agents.contains(agent);
     }
 
+    public boolean containsAll(ArrayList<Agent> agents) {
+        return this.agents.containsAll(agents);
+    }
+
     public World getSrc() {
         return src;
     }

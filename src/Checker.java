@@ -50,6 +50,10 @@ public class Checker {
         if (formula instanceof Everybody) {
             checkEverybody(frame, formula);
         }
+
+        if (formula instanceof Distributed) {
+            checkDistributed(frame, formula);
+        }
     }
     
     private static void checkPropositions(Frame frame, Formula formula) {
@@ -194,20 +198,41 @@ public class Checker {
 
     private static void checkEverybody(Frame frame, Formula formula) {
         Everybody everybody = (Everybody) formula;
-        for (Agent agent : everybody.getGroup()) {
-            Knowledge knowledge = new Knowledge(agent, everybody.getFormula());
-            checkKnowledge(frame, knowledge);
-        }
+        ArrayList<Agent> group = everybody.getGroup();
+
         for (World world : frame.getWorlds()) {
-            ArrayList<Formula> labels = world.getLabels();
             Boolean isPresent = true;
-            for (Agent agent : everybody.getGroup()) {
-                if (!labels.contains("K" + agent.getName() + "(" + everybody.getFormula() + ")")) {
-                    isPresent = false;
-                    break;
+            ArrayList<Formula> labels = world.getLabels();
+            for (Agent agent : group) {
+                for (Relation relation : world.getOutgoingRelations()) {
+                        if (relation.contains(agent)) {
+                            if (!relation.getDest().getLabels().contains(everybody.getFormula())) {
+                                isPresent = false;
+                                break;
+                            }
+                        }
                 }
             }
             if (isPresent) { labels.add(everybody); }
+        }
+    }
+
+    private static void checkDistributed(Frame frame, Formula formula) {
+        Distributed distributed = (Distributed) formula;
+        ArrayList<Agent> group = distributed.getGroup();
+
+        for (World world : frame.getWorlds()) {
+            Boolean isPresent = true;
+            ArrayList<Formula> labels = world.getLabels();
+            for (Relation relation : world.getOutgoingRelations()) {
+                if (relation.containsAll(group)) {
+                    if (!relation.getDest().getLabels().contains(distributed.getFormula())) {
+                        isPresent = false;
+                        break;
+                    }
+                }
+            }
+            if (isPresent) { labels.add(distributed); }
         }
     }
 }
