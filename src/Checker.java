@@ -223,6 +223,23 @@ public class Checker {
         }
     }
 
+    private static void checkCommon(Frame frame, Formula formula) {
+        Common common = (Common) formula;
+
+        Formula f = common.getFormula();
+
+        for (int i = 0; i < common.getGroup().size(); i++) {
+            Everybody everybody = new Everybody(common.getGroup(), f);
+            checkEverybody(frame, everybody);
+            f = everybody;
+        }
+
+        for (World world : frame.getWorlds()) {
+            ArrayList<Formula> labels = world.getLabels();
+            if (labels.contains(f)) { labels.add(common); }
+        }
+    }
+
     private static void checkDistributed(Frame frame, Formula formula) {
         Distributed distributed = (Distributed) formula;
         ArrayList<Agent> group = distributed.getGroup();
@@ -242,21 +259,4 @@ public class Checker {
         }
     }
 
-    private static void checkCommon(Frame frame, Formula formula) {
-        Common common = (Common) formula;
-
-        Formula f = common.getFormula();
-
-        for (int i = 0; i < common.getGroup().size(); i++) {
-            Everybody everybody = new Everybody(common.getGroup(), f);
-            checkEverybody(frame, everybody);
-            f = everybody;
-        }
-
-        for (World world : frame.getWorlds()) {
-            ArrayList<Formula> labels = world.getLabels();
-            if (labels.contains(f)) { labels.add(common); }
-        }
-
-    }
 }
