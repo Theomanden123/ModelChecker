@@ -51,6 +51,10 @@ public class Checker {
             checkEverybody(frame, formula);
         }
 
+        if (formula instanceof Common) {
+            checkCommon(frame, formula);
+        }
+
         if (formula instanceof Distributed) {
             checkDistributed(frame, formula);
         }
@@ -198,19 +202,21 @@ public class Checker {
 
     private static void checkEverybody(Frame frame, Formula formula) {
         Everybody everybody = (Everybody) formula;
-        ArrayList<Agent> group = everybody.getGroup();
+        ArrayList<Knowledge> knows = new ArrayList<Knowledge>();
+
+        for (Agent agent : everybody.getGroup()) {
+            Knowledge knowledge = new Knowledge(agent, everybody.getFormula());
+            knows.add(knowledge);
+            checkKnowledge(frame, knowledge);
+        }
 
         for (World world : frame.getWorlds()) {
-            Boolean isPresent = true;
             ArrayList<Formula> labels = world.getLabels();
-            for (Agent agent : group) {
-                for (Relation relation : world.getOutgoingRelations()) {
-                        if (relation.contains(agent)) {
-                            if (!relation.getDest().getLabels().contains(everybody.getFormula())) {
-                                isPresent = false;
-                                break;
-                            }
-                        }
+            Boolean isPresent = true;
+            for (Knowledge knowledge : knows) {
+                if (!labels.contains(knowledge)) {
+                    isPresent = false;
+                    break;
                 }
             }
             if (isPresent) { labels.add(everybody); }
@@ -234,5 +240,23 @@ public class Checker {
             }
             if (isPresent) { labels.add(distributed); }
         }
+    }
+
+    private static void checkCommon(Frame frame, Formula formula) {
+        Common common = (Common) formula;
+
+        Formula f = common.getFormula();
+
+        for (int i = 0; i < common.getGroup().size(); i++) {
+            Everybody everybody = new Everybody(common.getGroup(), f);
+            checkEverybody(frame, everybody);
+            f = everybody;
+        }
+
+        for (World world : frame.getWorlds()) {
+            ArrayList<Formula> labels = world.getLabels();
+            if (labels.contains(f)) { labels.add(common); }
+        }
+
     }
 }

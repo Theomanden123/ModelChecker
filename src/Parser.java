@@ -31,7 +31,7 @@ public class Parser {
             agent = frame.getAgent(name);
             operator = "" + operator.charAt(0);
         }
-        if (operator.charAt(0) == 'E' || operator.charAt(0) == 'D') {
+        if (operator.charAt(0) == 'C' || operator.charAt(0) == 'D' || operator.charAt(0) == 'E') {
             String rest = operator.substring(2, operator.length() - 1);
             String[] names = rest.split(",");
 
@@ -94,6 +94,9 @@ public class Parser {
 
         case "D":
             formula = new Distributed(group, getFormulaFromString(frame, argument));
+    
+        case "C":
+            formula = new Common(group, getFormulaFromString(frame, argument));
             break;
         }
 
