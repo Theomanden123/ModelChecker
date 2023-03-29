@@ -54,4 +54,9 @@ public class Frame {
         }
         return null;
     }
+
+    public ArrayList<Agent> getAgents() {
+        return agents;
+    }
+
 }

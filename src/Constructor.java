@@ -106,7 +106,6 @@ public class Constructor {
         return frame;
     }
 
-
     public static Frame frameDistinguishing() {
         Frame frame = new Frame();
 

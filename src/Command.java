@@ -31,6 +31,12 @@ public class Command {
                 break;
         } 
 
+        ArrayList<String> axioms = Checker.getAxioms(frame);
+        String system = Checker.getSystem(axioms);
+
+        System.out.println("Found axioms: " + axioms.toString());
+        System.out.println("Chosen frame is in the " + system + " class of frames");
+
         while (true) {
 
             System.out.print("Formula: "); input = scanner.nextLine();

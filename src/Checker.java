@@ -151,6 +151,7 @@ public class Checker {
             }
         }
     }
+
     private static void checkDiamond(Frame frame, Formula formula) {
         Diamond diamond = (Diamond) formula;
 
@@ -256,6 +257,98 @@ public class Checker {
                 }
             }
             if (isPresent) { labels.add(distributed); }
+        }
+    }
+
+    public static String getSystem(ArrayList<String> axioms) {
+        if (axioms.contains("T") &&
+            axioms.contains("K")) {
+                return "T";
+            }
+        return "K";
+    }
+   
+    public static ArrayList<String> getAxioms(Frame frame) {
+        ArrayList<String> axioms = new ArrayList<String>();
+
+        axioms.add("K");
+
+        if ( isSerial(frame) ) {axioms.add("D"); }
+        if ( isReflexive(frame) ) { axioms.add("T"); }
+        //if ( isTransitive(frame) ) { axioms.add("4"); }
+        //if ( isSymmetric(frame) ) { axioms.add("B"); }
+        //if ( isEuclidean(frame) ) { axioms.add("5"); }
+
+        return axioms;
+    }
+
+    private static boolean isSerial(Frame frame) {
+        boolean isSerial = true;
+        ArrayList<Agent> agents = frame.getAgents();
+        ArrayList<World> worlds = frame.getWorlds();
+        for (World world : worlds) {
+            ArrayList<Relation> relations = world.getOutgoingRelations();
+            if ( relations.size() == 0 || !isRepresented(agents, relations) ) {
+                isSerial = false;
+            }
+        }
+        return isSerial;
+    }
+
+    private static boolean isReflexive(Frame frame) {
+        ArrayList<Agent> agents = frame.getAgents();
+        ArrayList<World> worlds = frame.getWorlds();
+        for (World world : worlds) {
+            ArrayList<Relation> relations = world.getOutgoingRelations();
+            if (relations.size() == 0) { return false; }
+            ArrayList<Relation> reflexiveRelations = new ArrayList<Relation>();
+            for (Relation relation : relations) {
+                if (relation.getSrc() == world && 
+                    relation.getDest() == world) { reflexiveRelations.add(relation); }
+            }
+            if ( !isRepresented(agents, reflexiveRelations) ) { return false; }
+        }
+        return true;
+    }
+
+    /*
+    private static boolean isTransitive(Frame frame) {
+        
+    }
+    */
+    /* 
+    private static boolean isSymmetric(Frame frame) {
+        ArrayList<Agent> agents = frame.getAgents();
+        ArrayList<World> worlds = frame.getWorlds();
+        for (World world : worlds) {
+            ArrayList<Relation> outgoingRelations = world.getOutgoingRelations();
+            ArrayList<Relation> ingoingRelations = world.getIngoingRelations();
+            for (Relation relation : outgoingRelations) {
+                World src = relation.getSrc();
+                World dest = relation.getDest();
+                ArrayList<Agent> relationAgents = relation.getAgents();
+                for (Relation relation : ingoingRelations) {
+                    
+                }
+
+            }
+        }
+    }
+    */
+    private static boolean isRepresented(ArrayList<Agent> agents, ArrayList<Relation> relations) {
+        int counter = 0;
+        for (Agent agent : agents) {
+            for (Relation relation : relations) {
+                if (relation.contains(agent)) { 
+                    counter++; 
+                    break; 
+                }
+            }
+        }
+        if (counter == agents.size()) { 
+            return true; 
+        } else { 
+            return false; 
         }
     }
 

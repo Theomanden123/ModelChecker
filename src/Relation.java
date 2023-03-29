@@ -34,4 +34,8 @@ public class Relation {
         return dest;
     }
 
+    public ArrayList<Agent> getAgents() {
+        return agents;
+    }
+
 }
