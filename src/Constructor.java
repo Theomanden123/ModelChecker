@@ -284,17 +284,4 @@ public class Constructor {
         return frame;
     }
 
-    /* 
-    public static Frame extractAgentFromFrame(Frame frame, Agent extractAgent) {
-        Frame newFrame = new Frame();
-        newFrame.addAgent(extractAgent);
-        for (World world : frame.getWorlds()) {
-            World newWorld = new World(world.toString());
-            for (Relation outRel = world.getOutgoingRelations()) {
-
-            }
-        }
-    }
-    */
-
 }

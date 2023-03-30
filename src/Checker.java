@@ -283,48 +283,69 @@ public class Checker {
     }
 
     private static boolean isSerial(Frame frame) {
-        boolean isSerial = true;
-        ArrayList<Agent> agents = frame.getAgents();
-        ArrayList<World> worlds = frame.getWorlds();
-        for (World world : worlds) {
-            ArrayList<Relation> relations = world.getOutgoingRelations();
-            if ( relations.size() == 0 || !isRepresented(agents, relations) ) {
-                isSerial = false;
-            }
-        }
-        return isSerial;
-    }
-
-    private static boolean isReflexive(Frame frame) {
-        ArrayList<Agent> agents = frame.getAgents();
-        ArrayList<World> worlds = frame.getWorlds();
-        for (World world : worlds) {
-            ArrayList<Relation> relations = world.getOutgoingRelations();
-            if (relations.size() == 0) { return false; }
-            ArrayList<Relation> reflexiveRelations = new ArrayList<Relation>();
-            for (Relation relation : relations) {
-                if (relation.getSrc() == world && 
-                    relation.getDest() == world) { reflexiveRelations.add(relation); }
-            }
-            if ( !isRepresented(agents, reflexiveRelations) ) { return false; }
-        }
-        return true;
-    }
-
-    public static boolean isTransitive(Frame frame) {
+        int numberOfAgents = frame.getAgents().size(); 
         int index = frame.getAgents().size();
-        if (frame.getAgents().size() == 0) {
+        if (numberOfAgents == 0) {
             index = 1;
         }
         for (int i = 0; i < index; i++) {
             ArrayList<Agent> agents = frame.getAgents();
             for (World x : frame.getWorlds()) {
-                ArrayList<Relation> xR = x.getOutgoingRelations();
-                for (Relation xEdges : xR) {
-                    if (frame.getAgents().size() == 0 || xEdges.contains(agents.get(i))) {
-                        ArrayList<Relation> yR = xEdges.getDest().getOutgoingRelations();
-                        for (Relation yEdges : yR) {
-                            if (frame.getAgents().size() == 0 || yEdges.contains(agents.get(i))) {
+                ArrayList<Relation> relations = x.getOutgoingRelations();
+                boolean represented = false;
+                if (relations.size() == 0) { return false; }
+                for (Relation relation : relations) {
+                    if (numberOfAgents == 0 || relation.contains(agents.get(i))) { 
+                        represented = true; break;
+                    }
+                }
+                if (!represented) { return false;}
+            }
+        }
+        return true;
+    }
+
+    private static boolean isReflexive(Frame frame) {
+        int numberOfAgents = frame.getAgents().size(); 
+        int index = frame.getAgents().size();
+        if (numberOfAgents == 0) {
+            index = 1;
+        }
+        for (int i = 0; i < index; i++) {
+            ArrayList<Agent> agents = frame.getAgents();
+            for (World x : frame.getWorlds()) {
+                ArrayList<Relation> relations = x.getOutgoingRelations();
+                boolean represented = false;
+                if (relations.size() == 0) { return false; }
+                for (Relation relation : relations) {
+                    World y = relation.getDest(); 
+                    if (numberOfAgents == 0 || relation.contains(agents.get(i))) { 
+                        if (x == y) {
+                            represented = true; break;
+                        }
+                    }
+                }
+                if (!represented) { return false;}
+            }
+        }
+        return true;
+    }
+
+    public static boolean isTransitive(Frame frame) {
+        int numberOfAgents = frame.getAgents().size(); 
+        int index = frame.getAgents().size();
+        if (numberOfAgents == 0) {
+            index = 1;
+        }
+        for (int i = 0; i < index; i++) {
+            ArrayList<Agent> agents = frame.getAgents();
+            for (World x : frame.getWorlds()) {
+                ArrayList<Relation> xRelations = x.getOutgoingRelations();
+                for (Relation xEdges : xRelations) {
+                    if (numberOfAgents == 0 || xEdges.contains(agents.get(i))) {
+                        ArrayList<Relation> yRelations = xEdges.getDest().getOutgoingRelations();
+                        for (Relation yEdges : yRelations) {
+                            if (numberOfAgents == 0 || yEdges.contains(agents.get(i))) {
                                 World z = yEdges.getDest();
                                 if (!x.getExistingRelation(z)) {
                                     return false;
@@ -339,20 +360,22 @@ public class Checker {
     }
 
     public static boolean isEuclidean(Frame frame) {
-        int index = frame.getAgents().size();
-        if (frame.getAgents().size() == 0) {
+        int numberOfAgents = frame.getAgents().size();
+        int index = numberOfAgents;
+        if (numberOfAgents == 0) {
             index = 1;
         }
         for (int i = 0; i < index; i++) {
             ArrayList<Agent> agents = frame.getAgents();
             for (World x : frame.getWorlds()) {
-                ArrayList<Relation> xR = x.getOutgoingRelations();
-                for (Relation xEdge : xR) {
+                ArrayList<Relation> xRelations = x.getOutgoingRelations();
+                for (Relation xEdge : xRelations) {
                     World y = xEdge.getDest();
-                    if (frame.getAgents().size() == 0 || xEdge.contains(agents.get(i))) {
-                        for (Relation yEdge : xR) {
-                            if (xEdge == yEdge) {continue;}
-                            if (frame.getAgents().size() == 0 || yEdge.contains(agents.get(i))) {
+                    if (numberOfAgents == 0 || xEdge.contains(agents.get(i))) {
+                        for (Relation yEdge : xRelations) {
+                            // Points to same node
+                            if (xEdge == yEdge) { continue; }
+                            if (numberOfAgents == 0 || yEdge.contains(agents.get(i))) {
                                 World z = yEdge.getDest();
                                 if (!y.getExistingRelation(z)) {
                                     return false;
@@ -366,13 +389,17 @@ public class Checker {
         return true;
     }
     private static boolean isSymmetric(Frame frame) {
-        ArrayList<Agent> agents = frame.getAgents();
-        ArrayList<World> worlds = frame.getWorlds();
-        for (Agent agent : agents) {
-            for (World x : worlds) {
+        int numberOfAgents = frame.getAgents().size();
+        int index = numberOfAgents;
+        if (numberOfAgents == 0) {
+            index = 1;
+        }
+        for (int i = 0; i < index; i++) {
+            ArrayList<Agent> agents = frame.getAgents();
+            for (World x : frame.getWorlds()) {
                 ArrayList<Relation> xRelations = x.getOutgoingRelations();
                 for (Relation relation : xRelations) {
-                    if (relation.contains(agent)) {
+                    if (numberOfAgents == 0 || relation.contains(agents.get(i))) {
                         World y = relation.getDest(); 
                         if ( !y.getExistingRelation(x) ) { return false; }  
                     }
@@ -381,41 +408,4 @@ public class Checker {
         }
         return true;
     }
-
-    private static boolean isWorldSymmetric(Agent agent, World x, World y) {
-        ArrayList<Relation> xRelations = x.getOutgoingRelations();
-        ArrayList<Relation> yRelations = y.getOutgoingRelations();
-        for (Relation xs : xRelations) {
-            if (xs.getAgents().contains(agent) &&
-                xs.getSrc() == x &&
-                xs.getDest() == y) {
-                for (Relation ys : yRelations) {
-                    if (ys.getAgents().contains(agent) &&
-                        ys.getSrc() == y &&
-                        ys.getDest() == x) {
-                             return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    private static boolean isRepresented(ArrayList<Agent> agents, ArrayList<Relation> relations) {
-        int counter = 0;
-        for (Agent agent : agents) {
-            for (Relation relation : relations) {
-                if (relation.contains(agent)) { 
-                    counter++; 
-                    break; 
-                }
-            }
-        }
-        if (counter == agents.size()) { 
-            return true; 
-        } else { 
-            return false; 
-        }
-    }
-
 }
