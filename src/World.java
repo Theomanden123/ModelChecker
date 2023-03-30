@@ -57,7 +57,7 @@ public class World {
         return name;
     }
 
-    public boolean relationExists(World world) {
+    public boolean getExistingRelation(World world) {
         for (Relation relation : outgoingRelations) {
             if (relation.getDest().name.equals(world.name)) {
                 return true;
