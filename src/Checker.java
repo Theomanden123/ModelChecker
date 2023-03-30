@@ -275,9 +275,9 @@ public class Checker {
 
         if ( isSerial(frame) ) {axioms.add("D"); }
         if ( isReflexive(frame) ) { axioms.add("T"); }
-        //if ( isTransitive(frame) ) { axioms.add("4"); }
+        if ( isTransitive(frame) ) { axioms.add("4"); }
         //if ( isSymmetric(frame) ) { axioms.add("B"); }
-        //if ( isEuclidean(frame) ) { axioms.add("5"); }
+        if ( isEuclidean(frame) ) { axioms.add("5"); }
 
         return axioms;
     }
@@ -311,11 +311,61 @@ public class Checker {
         return true;
     }
 
-    /*
-    private static boolean isTransitive(Frame frame) {
-        
+    public static boolean isTransitive(Frame frame) {
+        int index = frame.getAgents().size();
+        if (frame.getAgents().size() == 0) {
+            index = 1;
+        }
+        for (int i = 0; i < index; i++) {
+            ArrayList<Agent> agents = frame.getAgents();
+            for (World x : frame.getWorlds()) {
+                ArrayList<Relation> xR = x.getOutgoingRelations();
+                for (Relation xEdges : xR) {
+                    if (frame.getAgents().size() == 0 || xEdges.contains(agents.get(i))) {
+                        ArrayList<Relation> yR = xEdges.getDest().getOutgoingRelations();
+                        for (Relation yEdges : yR) {
+                            if (frame.getAgents().size() == 0 || yEdges.contains(agents.get(i))) {
+                                World z = yEdges.getDest();
+                                if (!x.relationExists(z)) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
-    */
+
+    public static boolean isEuclidean(Frame frame) {
+        int index = frame.getAgents().size();
+        if (frame.getAgents().size() == 0) {
+            index = 1;
+        }
+        for (int i = 0; i < index; i++) {
+            ArrayList<Agent> agents = frame.getAgents();
+            for (World x : frame.getWorlds()) {
+                ArrayList<Relation> xR = x.getOutgoingRelations();
+                for (Relation xEdge : xR) {
+                    World y = xEdge.getDest();
+                    if (frame.getAgents().size() == 0 || xEdge.contains(agents.get(i))) {
+                        for (Relation yEdge : xR) {
+                            if (xEdge == yEdge) {continue;}
+                            if (frame.getAgents().size() == 0 || yEdge.contains(agents.get(i))) {
+                                World z = yEdge.getDest();
+                                if (!y.relationExists(z)) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    
     /* 
     private static boolean isSymmetric(Frame frame) {
         ArrayList<Agent> agents = frame.getAgents();
