@@ -381,25 +381,6 @@ public class Checker {
         }
         return true;
     }
-
-    private static boolean isWorldSymmetric(Agent agent, World x, World y) {
-        ArrayList<Relation> xRelations = x.getOutgoingRelations();
-        ArrayList<Relation> yRelations = y.getOutgoingRelations();
-        for (Relation xs : xRelations) {
-            if (xs.getAgents().contains(agent) &&
-                xs.getSrc() == x &&
-                xs.getDest() == y) {
-                for (Relation ys : yRelations) {
-                    if (ys.getAgents().contains(agent) &&
-                        ys.getSrc() == y &&
-                        ys.getDest() == x) {
-                             return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
     
     private static boolean isRepresented(ArrayList<Agent> agents, ArrayList<Relation> relations) {
         int counter = 0;

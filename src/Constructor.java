@@ -279,22 +279,96 @@ public class Constructor {
         return frame;
     }
 
+    public static Frame frameSerial() {
+        Frame frame = new Frame();
+        World x = new World("x");
+        World y = new World("y");
+        World z = new World("z");
+        new Relation(x, y);
+        new Relation(y, z);
+        new Relation(z, x);
+        return frame;
+    }
+
+    public static Frame frameReflexive() {
+        Frame frame = new Frame();
+        World x = new World("x");
+        World y = new World("y");
+        World z = new World("z");
+        new Relation(x, x);
+        new Relation(y, y);
+        new Relation(z, z);
+        new Relation(x, y);
+        new Relation(y, z);
+        new Relation(z, x);
+        return frame;
+    }
+
+    public static Frame frameTransitive() {
+        Frame frame = new Frame();
+        World x = new World("x");
+        World y = new World("y");
+        World z = new World("z");
+        new Relation(x, y);
+        new Relation(y, z);
+        new Relation(x, z);
+        return frame;
+    }
+
+    public static Frame frameSymmetric() {
+        Frame frame = new Frame();
+        World w = new World("w");
+        World x = new World("x");
+        World y = new World("y");
+        World z = new World("z");
+        new Relation(w, x);
+        new Relation(x, w);
+        new Relation(x, y);
+        new Relation(y, x);
+        new Relation(y, z);
+        new Relation(z, y);
+        new Relation(z, w);
+        new Relation(w, z);
+        return frame;
+    }
+
+    public static Frame frameSystem4() {
+        Frame frame = new Frame();
+        World x = new World("x");
+        World y = new World("y");
+        World z = new World("z");
+        new Relation(x, x);
+        new Relation(y, y);
+        new Relation(z, z);
+        new Relation(x, y);
+        new Relation(y, z);
+        new Relation(x, z);
+        return frame;
+    }
+
+    public static Frame frameSystem5() {
+        Frame frame = new Frame();
+        World x = new World("x");
+        World y = new World("y");
+        World z = new World("z");
+        new Relation(x, x);
+        new Relation(y, y);
+        new Relation(z, z);
+
+        new Relation(x, y);
+        new Relation(y, x);
+
+        new Relation(y, z);
+        new Relation(z, y);
+
+        new Relation(x, z);
+        new Relation(z, x);
+        return frame;
+    }
+
     public static Frame frameMadeByUser(ArrayList<World> worlds) {
         Frame frame = new Frame(worlds);
         return frame;
     }
-
-    /* 
-    public static Frame extractAgentFromFrame(Frame frame, Agent extractAgent) {
-        Frame newFrame = new Frame();
-        newFrame.addAgent(extractAgent);
-        for (World world : frame.getWorlds()) {
-            World newWorld = new World(world.toString());
-            for (Relation outRel = world.getOutgoingRelations()) {
-
-            }
-        }
-    }
-    */
 
 }

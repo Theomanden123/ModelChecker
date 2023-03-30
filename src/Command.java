@@ -25,6 +25,24 @@ public class Command {
             case "Sunshine":
                 frame = Constructor.frameSunshine();
                 break;
+            case "Serial":
+                frame = Constructor.frameSerial();
+                break;
+            case "Reflexive":
+                frame = Constructor.frameReflexive();
+                break;
+            case "Transitive":
+                frame = Constructor.frameTransitive();
+                break;
+            case "Symmetric":
+                frame = Constructor.frameSymmetric();
+                break;
+            case "System4":
+                frame = Constructor.frameSystem4();
+                break;
+            case "System5":
+                frame = Constructor.frameSystem5();
+                break;
             case "New":
                 ArrayList<World> worlds = queryUser(scanner);
                 frame = Constructor.frameMadeByUser(worlds);
