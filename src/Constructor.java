@@ -284,6 +284,9 @@ public class Constructor {
         World x = new World("x");
         World y = new World("y");
         World z = new World("z");
+        frame.addWorld(x);
+        frame.addWorld(y);
+        frame.addWorld(z);
         new Relation(x, y);
         new Relation(y, z);
         new Relation(z, x);
@@ -295,6 +298,9 @@ public class Constructor {
         World x = new World("x");
         World y = new World("y");
         World z = new World("z");
+        frame.addWorld(x);
+        frame.addWorld(y);
+        frame.addWorld(z);
         new Relation(x, x);
         new Relation(y, y);
         new Relation(z, z);
@@ -309,6 +315,9 @@ public class Constructor {
         World x = new World("x");
         World y = new World("y");
         World z = new World("z");
+        frame.addWorld(x);
+        frame.addWorld(y);
+        frame.addWorld(z);
         new Relation(x, y);
         new Relation(y, z);
         new Relation(x, z);
@@ -321,6 +330,10 @@ public class Constructor {
         World x = new World("x");
         World y = new World("y");
         World z = new World("z");
+        frame.addWorld(w);
+        frame.addWorld(x);
+        frame.addWorld(y);
+        frame.addWorld(z);
         new Relation(w, x);
         new Relation(x, w);
         new Relation(x, y);
@@ -337,6 +350,9 @@ public class Constructor {
         World x = new World("x");
         World y = new World("y");
         World z = new World("z");
+        frame.addWorld(x);
+        frame.addWorld(y);
+        frame.addWorld(z);
         new Relation(x, x);
         new Relation(y, y);
         new Relation(z, z);
@@ -351,6 +367,11 @@ public class Constructor {
         World x = new World("x");
         World y = new World("y");
         World z = new World("z");
+
+        frame.addWorld(x);
+        frame.addWorld(y);
+        frame.addWorld(z);
+
         new Relation(x, x);
         new Relation(y, y);
         new Relation(z, z);
@@ -363,6 +384,7 @@ public class Constructor {
 
         new Relation(x, z);
         new Relation(z, x);
+        
         return frame;
     }
 

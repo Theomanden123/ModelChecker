@@ -13,6 +13,7 @@ public class Frame {
     }
 
     public Frame(ArrayList<World> worlds) {
+        agents = new ArrayList<Agent>();
         this.worlds = worlds;
     }
 
