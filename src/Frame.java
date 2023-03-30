@@ -4,10 +4,12 @@ public class Frame {
 
     private ArrayList<Agent> agents;
     private ArrayList<World> worlds;
+    private ArrayList<World> blacklist;
 
     public Frame() {
         agents = new ArrayList<Agent>();
         worlds = new ArrayList<World>();
+        blacklist = new ArrayList<World>();
     }
 
     public Frame(ArrayList<World> worlds) {
@@ -20,6 +22,10 @@ public class Frame {
 
     public ArrayList<World> getWorlds() {
         return worlds;
+    }
+
+    public ArrayList<World> getBlacklist() {
+        return blacklist;
     }
 
     public World getWorldFromName(String name) {

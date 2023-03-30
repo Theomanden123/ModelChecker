@@ -276,7 +276,7 @@ public class Checker {
         if ( isSerial(frame) ) {axioms.add("D"); }
         if ( isReflexive(frame) ) { axioms.add("T"); }
         //if ( isTransitive(frame) ) { axioms.add("4"); }
-        //if ( isSymmetric(frame) ) { axioms.add("B"); }
+        if ( isSymmetric(frame) ) { axioms.add("B"); }
         //if ( isEuclidean(frame) ) { axioms.add("5"); }
 
         return axioms;
@@ -316,25 +316,43 @@ public class Checker {
         
     }
     */
-    /* 
+     
     private static boolean isSymmetric(Frame frame) {
         ArrayList<Agent> agents = frame.getAgents();
         ArrayList<World> worlds = frame.getWorlds();
-        for (World world : worlds) {
-            ArrayList<Relation> outgoingRelations = world.getOutgoingRelations();
-            ArrayList<Relation> ingoingRelations = world.getIngoingRelations();
-            for (Relation relation : outgoingRelations) {
-                World src = relation.getSrc();
-                World dest = relation.getDest();
-                ArrayList<Agent> relationAgents = relation.getAgents();
-                for (Relation relation : ingoingRelations) {
-                    
-                }
-
+        for (Agent agent : agents) {
+            for (World x : worlds) {
+                ArrayList<Relation> xRelations = x.getOutgoingRelations();
+                for (Relation relation : xRelations) {
+                    if (relation.contains(agent)) {
+                        World y = relation.getDest(); 
+                        if ( !y.getExistingRelation(x) ) { return false; }  
+                    }
+                } 
             }
         }
+        return true;
     }
-    */
+
+    private static boolean isWorldSymmetric(Agent agent, World x, World y) {
+        ArrayList<Relation> xRelations = x.getOutgoingRelations();
+        ArrayList<Relation> yRelations = y.getOutgoingRelations();
+        for (Relation xs : xRelations) {
+            if (xs.getAgents().contains(agent) &&
+                xs.getSrc() == x &&
+                xs.getDest() == y) {
+                for (Relation ys : yRelations) {
+                    if (ys.getAgents().contains(agent) &&
+                        ys.getSrc() == y &&
+                        ys.getDest() == x) {
+                             return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
     private static boolean isRepresented(ArrayList<Agent> agents, ArrayList<Relation> relations) {
         int counter = 0;
         for (Agent agent : agents) {
