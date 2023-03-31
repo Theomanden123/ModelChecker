@@ -47,6 +47,14 @@ public class Parser {
             operator = "" + operator.charAt(0);
         }
 
+        Formula announcementFormula = null;
+        if (operator.charAt(1) == '!') {
+            String announcementString = operator.substring(2, operator.length() - 1);
+            announcementFormula = getFormulaFromString(frame, announcementString);
+            operator = "!";
+        }
+
+
         Formula formula = null;
 
         switch (operator) {
@@ -103,6 +111,10 @@ public class Parser {
 
         case "D":
             formula = new Distributed(group, getFormulaFromString(frame, argument));
+            break;
+
+        case "!":
+            formula = new Announcement(getFormulaFromString(frame, argument), announcementFormula);
             break;
         }
 
