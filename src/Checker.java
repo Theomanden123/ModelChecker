@@ -2,66 +2,74 @@ import java.util.ArrayList;
 
 public class Checker {
 
-    public static void label(Frame frame, Formula formula) {
+    public static void label(Frame frame, Formula formula, ArrayList<World> blacklist) {
 
         if (formula instanceof BinaryOperator) {
             BinaryOperator f = (BinaryOperator) formula;
-            label(frame, f.getLeft());
-            label(frame, f.getRight());
+            label(frame, f.getLeft(), blacklist);
+            label(frame, f.getRight(), blacklist);
 
-        } else if (formula instanceof UnaryOperator) {
+        } else if (formula instanceof Announcement) {
+            Announcement announcement = (Announcement) formula;
+            Not announceNot = new Not(announcement.getAnnouncement());
+            ArrayList<World> blackList = frame.getBlacklist(announceNot);
+            label(frame, announcement.getFormula(), blackList);
+            checkAnnouncement(frame, formula, blackList);
+        } 
+        else if (formula instanceof UnaryOperator) {
             UnaryOperator f = (UnaryOperator) formula;
-            label(frame, f.getFormula());
+            label(frame, f.getFormula(), blacklist);
         }
 
         if (formula instanceof Literal) {
-            checkPropositions(frame, formula);
+            checkPropositions(frame, formula, blacklist);
         }
         if (formula instanceof And)  {
-            checkAnd(frame, formula);
+            checkAnd(frame, formula, blacklist);
         }
         if (formula instanceof Or) {
-            checkOr(frame, formula);
+            checkOr(frame, formula, blacklist);
         }
         if (formula instanceof Imp) {
-            checkImp(frame, formula);
+            checkImp(frame, formula, blacklist);
         }
         
         if (formula instanceof Equiv) {
-            checkEquiv(frame, formula);
+            checkEquiv(frame, formula, blacklist);
         }
 
         if (formula instanceof Not) {
-            checkNot(frame, formula);
+            checkNot(frame, formula, blacklist);
         }
 
         if (formula instanceof Diamond) {
-            checkDiamond(frame, formula);
+            checkDiamond(frame, formula, blacklist);
         }
 
         if (formula instanceof Box) {
-            checkBox(frame, formula);
+            checkBox(frame, formula, blacklist);
         }
 
         if (formula instanceof Knowledge) {
-            checkKnowledge(frame, formula);
+            checkKnowledge(frame, formula, blacklist);
         }
 
         if (formula instanceof Everybody) {
-            checkEverybody(frame, formula);
+            checkEverybody(frame, formula, blacklist);
         }
 
         if (formula instanceof Common) {
-            checkCommon(frame, formula);
+            checkCommon(frame, formula, blacklist);
         }
 
         if (formula instanceof Distributed) {
-            checkDistributed(frame, formula);
+            checkDistributed(frame, formula, blacklist);
         }
     }
     
-    private static void checkPropositions(Frame frame, Formula formula) {
+    private static void checkPropositions(Frame frame, Formula formula, ArrayList<World> blacklist) {
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             if (world.getInterpretation().contains(formula)) {
                 world.addLabel(formula);
             } else {
@@ -71,10 +79,11 @@ public class Checker {
         }
     }
 
-    private static void checkAnd(Frame frame, Formula formula) {
+    private static void checkAnd(Frame frame, Formula formula, ArrayList<World> blacklist) {
         BinaryOperator f = (BinaryOperator) formula;
         
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             ArrayList<Formula> labels = world.getLabels();
             if (labels.contains(f.getLeft()) && labels.contains(f.getRight())) {
                 labels.add(f);
@@ -82,10 +91,11 @@ public class Checker {
         }
     }
 
-    private static void checkOr(Frame frame, Formula formula) {
+    private static void checkOr(Frame frame, Formula formula, ArrayList<World> blacklist) {
         BinaryOperator f = (BinaryOperator) formula;
         
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             ArrayList<Formula> labels = world.getLabels();
             if (labels.contains(f.getLeft()) || labels.contains(f.getRight())) {
                 labels.add(f);
@@ -93,7 +103,7 @@ public class Checker {
         }
     }
 
-    private static void checkImp(Frame frame, Formula formula) {
+    private static void checkImp(Frame frame, Formula formula, ArrayList<World> blacklist) {
         BinaryOperator f = (BinaryOperator) formula;
 
         Formula right;
@@ -105,6 +115,7 @@ public class Checker {
         }
 
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             ArrayList<Formula> labels = world.getLabels();
             if (!(labels.contains(f.getLeft()) && labels.contains(right))) {
                 labels.add(f);
@@ -112,7 +123,7 @@ public class Checker {
         }
     }
 
-    private static void checkEquiv(Frame frame, Formula formula) {
+    private static void checkEquiv(Frame frame, Formula formula, ArrayList<World> blacklist) {
         BinaryOperator f = (BinaryOperator) formula;
 
         Formula left;
@@ -133,6 +144,7 @@ public class Checker {
 
         for (World world : frame.getWorlds()) {
 
+            if (blacklist.contains(world)) { continue; }
             ArrayList<Formula> labels = world.getLabels();
 
             if (labels.contains(f.getLeft()) && labels.contains(f.getRight()) ||
@@ -142,9 +154,10 @@ public class Checker {
         }
     }
 
-    private static void checkNot(Frame frame, Formula formula) {
+    private static void checkNot(Frame frame, Formula formula, ArrayList<World> blacklist) {
         Not not = (Not) formula;
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             ArrayList<Formula> labels = world.getLabels();
             if (!labels.contains(not.getFormula())) {
                 labels.add(not);
@@ -152,10 +165,11 @@ public class Checker {
         }
     }
 
-    private static void checkDiamond(Frame frame, Formula formula) {
+    private static void checkDiamond(Frame frame, Formula formula, ArrayList<World> blacklist) {
         Diamond diamond = (Diamond) formula;
 
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             ArrayList<Formula> labels = world.getLabels();
             if (labels.contains(diamond.getFormula())) {
                 for (Relation relation : world.getIngoingRelations()) {
@@ -166,10 +180,11 @@ public class Checker {
         }
     }
 
-    private static void checkBox(Frame frame, Formula formula) {
+    private static void checkBox(Frame frame, Formula formula, ArrayList<World> blacklist) {
         Box box = (Box) formula;
 
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             Boolean isPresent = true;
             ArrayList<Formula> labels = world.getLabels();
             for (Relation relation : world.getOutgoingRelations()) {
@@ -182,11 +197,12 @@ public class Checker {
         }
     }
 
-    private static void checkKnowledge(Frame frame, Formula formula) {
+    private static void checkKnowledge(Frame frame, Formula formula, ArrayList<World> blacklist) {
         Knowledge knowledge = (Knowledge) formula;
         Agent agent = knowledge.getAgent();
 
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             Boolean isPresent = true;
             ArrayList<Formula> labels = world.getLabels();
             for (Relation relation : world.getOutgoingRelations()) {
@@ -201,17 +217,18 @@ public class Checker {
         }
     }
 
-    private static void checkEverybody(Frame frame, Formula formula) {
+    private static void checkEverybody(Frame frame, Formula formula, ArrayList<World> blacklist) {
         Everybody everybody = (Everybody) formula;
         ArrayList<Knowledge> knows = new ArrayList<Knowledge>();
 
         for (Agent agent : everybody.getGroup()) {
             Knowledge knowledge = new Knowledge(agent, everybody.getFormula());
             knows.add(knowledge);
-            checkKnowledge(frame, knowledge);
+            checkKnowledge(frame, knowledge, blacklist);
         }
 
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             ArrayList<Formula> labels = world.getLabels();
             Boolean isPresent = true;
             for (Knowledge knowledge : knows) {
@@ -224,28 +241,30 @@ public class Checker {
         }
     }
 
-    private static void checkCommon(Frame frame, Formula formula) {
+    private static void checkCommon(Frame frame, Formula formula, ArrayList<World> blacklist) {
         Common common = (Common) formula;
 
         Formula f = common.getFormula();
 
         for (int i = 0; i < common.getGroup().size(); i++) {
             Everybody everybody = new Everybody(common.getGroup(), f);
-            checkEverybody(frame, everybody);
+            checkEverybody(frame, everybody, blacklist);
             f = everybody;
         }
 
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             ArrayList<Formula> labels = world.getLabels();
             if (labels.contains(f)) { labels.add(common); }
         }
     }
 
-    private static void checkDistributed(Frame frame, Formula formula) {
+    private static void checkDistributed(Frame frame, Formula formula, ArrayList<World> blacklist) {
         Distributed distributed = (Distributed) formula;
         ArrayList<Agent> group = distributed.getGroup();
 
         for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
             Boolean isPresent = true;
             ArrayList<Formula> labels = world.getLabels();
             for (Relation relation : world.getOutgoingRelations()) {
@@ -257,6 +276,16 @@ public class Checker {
                 }
             }
             if (isPresent) { labels.add(distributed); }
+        }
+    }
+
+    private static void checkAnnouncement(Frame frame, Formula formula, ArrayList<World> blacklist) {
+        Announcement announcement = (Announcement) formula;
+        for (World world : frame.getWorlds()) {
+            if (blacklist.contains(world)) { continue; }
+            if (world.getLabels().contains(announcement.getFormula())) {
+                world.addLabel(announcement);
+            }
         }
     }
 

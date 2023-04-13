@@ -25,7 +25,10 @@ public class Frame {
         return worlds;
     }
 
-    public ArrayList<World> getBlacklist() {
+    public ArrayList<World> getBlacklist(Formula formula) {
+        Checker.label(this, formula, new ArrayList<World>());
+        ArrayList<World> blacklist = getModellingWorlds(formula);
+        flushLabels();
         return blacklist;
     }
 
@@ -64,6 +67,12 @@ public class Frame {
 
     public ArrayList<Agent> getAgents() {
         return agents;
+    }
+
+    public void flushLabels() {
+        for (World world : worlds) {
+            world.getLabels().clear();
+        }
     }
 
 }

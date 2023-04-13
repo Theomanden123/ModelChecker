@@ -62,7 +62,7 @@ public class Command {
             if (input.toUpperCase().equals("END")) { break; }
 
             Formula formula = Parser.getFormulaFromString(frame, input);
-            Checker.label(frame, formula);
+            Checker.label(frame, formula, new ArrayList<World>());
             ArrayList<World> worlds = frame.getModellingWorlds(formula);
 
             System.out.println(formula.toString() + " is true at " + worlds.toString());
