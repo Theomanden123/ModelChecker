@@ -279,6 +279,63 @@ public class Constructor {
         return frame;
     }
 
+    public static Frame frameMuddy(){
+        Frame frame = new Frame();
+
+        Agent a = new Agent("a"); frame.addAgent(a);
+        Agent b = new Agent("b"); frame.addAgent(b);
+        Agent c = new Agent("c"); frame.addAgent(c);
+
+        World w1 = new World("w1"); frame.addWorld(w1);
+        World w2 = new World("w2"); frame.addWorld(w2);
+        World w3 = new World("w3"); frame.addWorld(w3);
+        World w4 = new World("w4"); frame.addWorld(w4);
+        World w5 = new World("w5"); frame.addWorld(w5);
+        World w6 = new World("w6"); frame.addWorld(w6);
+        World w7 = new World("w7"); frame.addWorld(w7);
+        World w8 = new World("w8"); frame.addWorld(w8);
+
+        Literal ma = new Literal('a'); Formula ca = new Not(ma);
+        Literal mb = new Literal('b'); Formula cb = new Not(mb);
+        Literal mc = new Literal('c'); Formula cc = new Not(mc);
+
+        w1.addProposition(ma); w2.addProposition(ma); w3.addProposition(ma); w4.addProposition(ca);
+        w1.addProposition(mb); w2.addProposition(cb); w3.addProposition(mb); w4.addProposition(mb);
+        w1.addProposition(mc); w2.addProposition(mc); w3.addProposition(cc); w4.addProposition(mc);
+        
+        w5.addProposition(ma); w6.addProposition(ca); w7.addProposition(ca); w8.addProposition(ca);
+        w5.addProposition(cb); w6.addProposition(cb); w7.addProposition(mb); w8.addProposition(cb);
+        w5.addProposition(cc); w6.addProposition(mc); w7.addProposition(cc); w8.addProposition(cc);
+
+        Relation w1w1 = new Relation(w1, w1); w1w1.addAgent(a); w1w1.addAgent(b); w1w1.addAgent(c);
+        Relation w2w2 = new Relation(w2, w2); w2w2.addAgent(a); w2w2.addAgent(b); w2w2.addAgent(c);
+        Relation w3w3 = new Relation(w3, w3); w3w3.addAgent(a); w3w3.addAgent(b); w3w3.addAgent(c);
+        Relation w4w4 = new Relation(w4, w4); w4w4.addAgent(a); w4w4.addAgent(b); w4w4.addAgent(c);
+        Relation w5w5 = new Relation(w5, w5); w5w5.addAgent(a); w5w5.addAgent(b); w5w5.addAgent(c);
+        Relation w6w6 = new Relation(w6, w6); w6w6.addAgent(a); w6w6.addAgent(b); w6w6.addAgent(c);
+        Relation w7w7 = new Relation(w7, w7); w7w7.addAgent(a); w7w7.addAgent(b); w7w7.addAgent(c);
+        Relation w8w8 = new Relation(w8, w8); w8w8.addAgent(a); w8w8.addAgent(b); w8w8.addAgent(c);
+
+        Relation w1w2 = new Relation(w1, w2); w1w2.addAgent(b);
+        Relation w1w3 = new Relation(w1, w3); w1w3.addAgent(c);
+        Relation w1w4 = new Relation(w1, w4); w1w4.addAgent(a);
+
+        Relation w2w5 = new Relation(w2, w5); w2w5.addAgent(c);
+        Relation w2w6 = new Relation(w2, w6); w2w6.addAgent(a);
+
+        Relation w3w5 = new Relation(w3, w5); w3w5.addAgent(b);
+        Relation w3w7 = new Relation(w3, w7); w3w7.addAgent(a);
+
+        Relation w4w6 = new Relation(w4, w6); w4w6.addAgent(b);
+        Relation w4w7 = new Relation(w4, w7); w4w7.addAgent(c);
+
+        Relation w5w8 = new Relation(w5, w8); w5w8.addAgent(a);
+        Relation w6w8 = new Relation(w6, w8); w6w8.addAgent(c);
+        Relation w7w8 = new Relation(w7, w8); w7w8.addAgent(b);
+
+        return frame;
+    }
+
     public static Frame frameSerial() {
         Frame frame = new Frame();
         World x = new World("x");
