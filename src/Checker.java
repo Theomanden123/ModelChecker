@@ -14,6 +14,7 @@ public class Checker {
             Not announceNot = new Not(announcement.getAnnouncement());
             ArrayList<World> blackListNew = frame.getBlacklist(announceNot);
             blacklist.addAll(blackListNew);
+            System.out.println(blacklist);
             label(frame, announcement.getFormula(), blacklist);
             checkAnnouncement(frame, formula, blacklist);
         } 
@@ -174,6 +175,7 @@ public class Checker {
             ArrayList<Formula> labels = world.getLabels();
             if (labels.contains(diamond.getFormula())) {
                 for (Relation relation : world.getIngoingRelations()) {
+                    if (blacklist.contains(relation.getDest())) { continue; }
                     World worldSrc = relation.getSrc();
                     if (!worldSrc.getLabels().contains(diamond)) { worldSrc.addLabel(diamond); }
                 }
@@ -189,6 +191,7 @@ public class Checker {
             Boolean isPresent = true;
             ArrayList<Formula> labels = world.getLabels();
             for (Relation relation : world.getOutgoingRelations()) {
+                if (blacklist.contains(relation.getDest())) { continue; }
                 if (!relation.getDest().getLabels().contains(box.getFormula())) {
                     isPresent = false;
                     break;
@@ -207,6 +210,7 @@ public class Checker {
             Boolean isPresent = true;
             ArrayList<Formula> labels = world.getLabels();
             for (Relation relation : world.getOutgoingRelations()) {
+                if (blacklist.contains(relation.getDest())) { continue; }
                 if (relation.contains(agent)) {
                     if (!relation.getDest().getLabels().contains(knowledge.getFormula())) {
                         isPresent = false;
@@ -269,6 +273,7 @@ public class Checker {
             Boolean isPresent = true;
             ArrayList<Formula> labels = world.getLabels();
             for (Relation relation : world.getOutgoingRelations()) {
+                if (blacklist.contains(relation.getDest())) { continue; }
                 if (relation.containsAll(group)) {
                     if (!relation.getDest().getLabels().contains(distributed.getFormula())) {
                         isPresent = false;
