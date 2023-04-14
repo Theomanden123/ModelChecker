@@ -4,56 +4,62 @@ public class Parser {
 
     public static Formula getFormulaFromString(Frame frame, String input) {
 
-        int index = input.indexOf("(");
+        int index1 = input.indexOf("(");
+        int index2 = input.indexOf("[");
 
-        if (index == -1) {
-            Formula formula;
-            if (input.contains("Verum")) {
-                formula = new Verum();
-            } else if (input.contains("Falsum")) {
-                formula = new Falsum();
-            } else {
-                formula = new Literal(input.charAt(0));
-            }
-            
-            return formula;
-        }
-
-        String operator = input.substring(0, index);
-        String argument = input.substring(index + 1, input.length());
-        String[] arguments = getArguments(argument);
-
+        String operator = "";
+        String argument = "";
+        String[] arguments = null;
         Agent agent = null;
         ArrayList<Agent> group = new ArrayList<Agent>();
 
-        if (operator.charAt(0) == 'K') {
-            String name = operator.substring(1, operator.length());
-            agent = frame.getAgent(name);
-            operator = "" + operator.charAt(0);
-        }
-
-        if (operator.charAt(0) == 'E' || 
-            operator.charAt(0) == 'C' || 
-            operator.charAt(0) == 'D') {
-
-            String rest = operator.substring(2, operator.length() - 1);
-            String[] names = rest.split(",");
-
-            for (String name : names) {
-                agent = frame.getAgent(name);
-                group.add(agent);
+        Formula announcementFormula = null;
+        if (index2 != -1 && index2 < index1) {
+            int index3 = input.indexOf("]");
+            String announcementString = input.substring(index2 + 2, index3);
+            announcementFormula = getFormulaFromString(frame, announcementString);
+            argument = input.substring(index3+2, input.length());
+            operator = "!";
+        } else {
+            if (index1 == -1) {
+                Formula formula;
+                if (input.contains("Verum")) {
+                    formula = new Verum();
+                } else if (input.contains("Falsum")) {
+                    formula = new Falsum();
+                } else {
+                    formula = new Literal(input.charAt(0));
+                }
+                
+                return formula;
             }
 
-            operator = "" + operator.charAt(0);
-        }
+            operator = input.substring(0, index1);
+            argument = input.substring(index1 + 1, input.length());
+            arguments = getArguments(argument);
 
-        Formula announcementFormula = null;
-        if (operator.charAt(1) == '!') {
-            String announcementString = operator.substring(2, operator.length() - 1);
-            announcementFormula = getFormulaFromString(frame, announcementString);
-            operator = "!";
-        }
 
+            if (operator.charAt(0) == 'K') {
+                String name = operator.substring(1, operator.length());
+                agent = frame.getAgent(name);
+                operator = "" + operator.charAt(0);
+            }
+
+            if (operator.charAt(0) == 'E' || 
+                operator.charAt(0) == 'C' || 
+                operator.charAt(0) == 'D') {
+
+                String rest = operator.substring(2, operator.length() - 1);
+                String[] names = rest.split(",");
+
+                for (String name : names) {
+                    agent = frame.getAgent(name);
+                    group.add(agent);
+                }
+
+                operator = "" + operator.charAt(0);
+            }
+        }
 
         Formula formula = null;
 

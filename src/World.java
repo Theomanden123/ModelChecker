@@ -66,4 +66,9 @@ public class World {
         return false;
     }
 
+    public void setLabelList(ArrayList<Formula> labelCopy) {
+        labels = labelCopy;
+        System.out.println(labels);
+    }
+
 }

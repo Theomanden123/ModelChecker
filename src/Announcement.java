@@ -12,5 +12,8 @@ public class Announcement extends UnaryOperator {
         return announcement;
     }
 
+    public String toString() {
+        return "[!" + announcement.toString() + "]"+ "(" + formula + ")";
+    }
 
 }

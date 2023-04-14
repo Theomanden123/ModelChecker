@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Frame {
 
@@ -26,9 +27,10 @@ public class Frame {
     }
 
     public ArrayList<World> getBlacklist(Formula formula) {
+        ArrayList<ArrayList<Formula>> previousLabelLists = getCopyWorldLabelLists();
         Checker.label(this, formula, new ArrayList<World>());
         ArrayList<World> blacklist = getModellingWorlds(formula);
-        flushLabels();
+        setCopyWorldLabelLists(previousLabelLists);
         return blacklist;
     }
 
@@ -68,11 +70,19 @@ public class Frame {
     public ArrayList<Agent> getAgents() {
         return agents;
     }
-
-    public void flushLabels() {
+    public ArrayList<ArrayList<Formula>> getCopyWorldLabelLists() {
+        ArrayList<ArrayList<Formula>> previousLabelLists = new ArrayList<ArrayList<Formula>>();
         for (World world : worlds) {
-            world.getLabels().clear();
+            ArrayList<Formula> label = world.getLabels();
+            ArrayList<Formula> copyLabel = new ArrayList<Formula>();
+            copyLabel.addAll(label);
+            previousLabelLists.add(copyLabel);
+        }
+        return previousLabelLists;
+    }
+    public void setCopyWorldLabelLists(ArrayList<ArrayList<Formula>> previousLabelLists) {
+        for (int i = 0; i < worlds.size(); i++) {
+            worlds.get(i).setLabelList(previousLabelLists.get(i));
         }
     }
-
 }
