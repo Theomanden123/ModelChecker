@@ -19,6 +19,9 @@ public class Command {
             case "Distinct":
                 frame = Constructor.frameDistinguishing();
                 break;
+            case "Muddy":
+                frame = Constructor.frameMuddy();
+                break;
             case "Poker":
                 frame = Constructor.framePoker();
                 break;
