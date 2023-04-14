@@ -12,9 +12,10 @@ public class Checker {
         } else if (formula instanceof Announcement) {
             Announcement announcement = (Announcement) formula;
             Not announceNot = new Not(announcement.getAnnouncement());
-            ArrayList<World> blackList = frame.getBlacklist(announceNot);
-            label(frame, announcement.getFormula(), blackList);
-            checkAnnouncement(frame, formula, blackList);
+            ArrayList<World> blackListNew = frame.getBlacklist(announceNot);
+            blacklist.addAll(blackListNew);
+            label(frame, announcement.getFormula(), blacklist);
+            checkAnnouncement(frame, formula, blacklist);
         } 
         else if (formula instanceof UnaryOperator) {
             UnaryOperator f = (UnaryOperator) formula;
