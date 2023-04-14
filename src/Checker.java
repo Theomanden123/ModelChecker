@@ -14,7 +14,6 @@ public class Checker {
             Not announceNot = new Not(announcement.getAnnouncement());
             ArrayList<World> blackListNew = frame.getBlacklist(announceNot);
             blacklist.addAll(blackListNew);
-            System.out.println(blacklist);
             label(frame, announcement.getFormula(), blacklist);
             checkAnnouncement(frame, formula, blacklist);
         } 
