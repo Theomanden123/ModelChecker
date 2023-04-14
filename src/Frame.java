@@ -26,9 +26,9 @@ public class Frame {
         return worlds;
     }
 
-    public ArrayList<World> getBlacklist(Formula formula) {
+    public ArrayList<World> getBlacklist(Formula formula, ArrayList<World> blackList) {
         ArrayList<ArrayList<Formula>> previousLabelLists = getCopyWorldLabelLists();
-        Checker.label(this, formula, new ArrayList<World>());
+        Checker.label(this, formula, blackList);
         ArrayList<World> blacklist = getModellingWorlds(formula);
         setCopyWorldLabelLists(previousLabelLists);
         return blacklist;

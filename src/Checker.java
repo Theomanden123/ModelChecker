@@ -12,9 +12,8 @@ public class Checker {
         } else if (formula instanceof Announcement) {
             Announcement announcement = (Announcement) formula;
             Not announceNot = new Not(announcement.getAnnouncement());
-            ArrayList<World> blackListNew = frame.getBlacklist(announceNot);
+            ArrayList<World> blackListNew = frame.getBlacklist(announceNot, blacklist);
             blacklist.addAll(blackListNew);
-            System.out.println(blacklist);
             label(frame, announcement.getFormula(), blacklist);
             checkAnnouncement(frame, formula, blacklist);
         } 
