@@ -316,22 +316,22 @@ public class Constructor {
         Relation w7w7 = new Relation(w7, w7); w7w7.addAgent(a); w7w7.addAgent(b); w7w7.addAgent(c);
         Relation w8w8 = new Relation(w8, w8); w8w8.addAgent(a); w8w8.addAgent(b); w8w8.addAgent(c);
 
-        Relation w1w2 = new Relation(w1, w2); w1w2.addAgent(b);
-        Relation w1w3 = new Relation(w1, w3); w1w3.addAgent(c);
-        Relation w1w4 = new Relation(w1, w4); w1w4.addAgent(a);
+        Relation w1w2 = new Relation(w1, w2); w1w2.addAgent(b); Relation w2w1 = new Relation(w2, w1); w2w1.addAgent(b);
+        Relation w1w3 = new Relation(w1, w3); w1w3.addAgent(c); Relation w3w1 = new Relation(w3, w1); w3w1.addAgent(c);
+        Relation w1w4 = new Relation(w1, w4); w1w4.addAgent(a); Relation w4w1 = new Relation(w4, w1); w4w1.addAgent(a);
 
-        Relation w2w5 = new Relation(w2, w5); w2w5.addAgent(c);
-        Relation w2w6 = new Relation(w2, w6); w2w6.addAgent(a);
+        Relation w2w5 = new Relation(w2, w5); w2w5.addAgent(c); Relation w5w2 = new Relation(w5, w2); w5w2.addAgent(c);
+        Relation w2w6 = new Relation(w2, w6); w2w6.addAgent(a); Relation w6w2 = new Relation(w6, w2); w6w2.addAgent(a);
 
-        Relation w3w5 = new Relation(w3, w5); w3w5.addAgent(b);
-        Relation w3w7 = new Relation(w3, w7); w3w7.addAgent(a);
+        Relation w3w5 = new Relation(w3, w5); w3w5.addAgent(b); Relation w5w3 = new Relation(w5, w3); w5w3.addAgent(b);
+        Relation w3w7 = new Relation(w3, w7); w3w7.addAgent(a); Relation w7w3 = new Relation(w7, w3); w7w3.addAgent(a);
 
-        Relation w4w6 = new Relation(w4, w6); w4w6.addAgent(b);
-        Relation w4w7 = new Relation(w4, w7); w4w7.addAgent(c);
+        Relation w4w6 = new Relation(w4, w6); w4w6.addAgent(b); Relation w6w4 = new Relation(w6, w4); w6w4.addAgent(b);
+        Relation w4w7 = new Relation(w4, w7); w4w7.addAgent(c); Relation w7w4 = new Relation(w7, w4); w7w4.addAgent(c);
 
-        Relation w5w8 = new Relation(w5, w8); w5w8.addAgent(a);
-        Relation w6w8 = new Relation(w6, w8); w6w8.addAgent(c);
-        Relation w7w8 = new Relation(w7, w8); w7w8.addAgent(b);
+        Relation w5w8 = new Relation(w5, w8); w5w8.addAgent(a); Relation w8w5 = new Relation(w8, w5); w8w5.addAgent(a);
+        Relation w6w8 = new Relation(w6, w8); w6w8.addAgent(c); Relation w8w6 = new Relation(w8, w6); w8w6.addAgent(c);
+        Relation w7w8 = new Relation(w7, w8); w7w8.addAgent(b); Relation w8w7 = new Relation(w8, w7); w8w7.addAgent(b);
 
         return frame;
     }
