@@ -14,4 +14,17 @@ public class Agent {
         return getName();
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        Agent a = (Agent) obj;
+        if (this.toString().equals(a.toString())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

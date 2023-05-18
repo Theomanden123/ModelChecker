@@ -1,16 +1,13 @@
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Frame {
 
     private ArrayList<Agent> agents;
     private ArrayList<World> worlds;
-    private ArrayList<World> blacklist;
 
     public Frame() {
         agents = new ArrayList<Agent>();
         worlds = new ArrayList<World>();
-        blacklist = new ArrayList<World>();
     }
 
     public Frame(ArrayList<World> worlds) {
@@ -57,6 +54,10 @@ public class Frame {
     public void addAgent(Agent agent) {
         agents.add(agent);
     }
+    
+    public void addAgents(ArrayList<Agent> agents) {
+        this.agents = agents;
+    } 
 
     public Agent getAgent(String name) {
         for (Agent agent : agents) {
