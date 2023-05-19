@@ -5,8 +5,8 @@ public class Constructor {
     public static Frame frameSunshine() {
 
         Frame frame = new Frame();
-        Agent a = new Agent("1");
-        Agent b = new Agent("2");
+        Agent a = new Agent("a");
+        Agent b = new Agent("b");
         frame.addAgent(a);
         frame.addAgent(b);
 
