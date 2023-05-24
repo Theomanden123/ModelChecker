@@ -7,52 +7,55 @@ public class Command {
         Scanner scanner = new Scanner(System.in); 
         
         String input;
-        
-        System.out.print("Choose frame: "); input = scanner.nextLine();
-
         Frame frame = null;
+        do {
+            
+            System.out.print("Choose frame: "); 
+            input = scanner.nextLine();
 
-        switch(input) {
-            case "Alphabet":
-                frame = Constructor.frameAlphabet();
-                break;
-            case "Distinct":
-                frame = Constructor.frameDistinguishing();
-                break;
-            case "Muddy":
-                frame = Constructor.frameMuddy();
-                break;
-            case "Poker":
-                frame = Constructor.framePoker();
-                break;
-            case "Sunshine":
-                frame = Constructor.frameSunshine();
-                break;
-            case "Serial":
-                frame = Constructor.frameSerial();
-                break;
-            case "Reflexive":
-                frame = Constructor.frameReflexive();
-                break;
-            case "Transitive":
-                frame = Constructor.frameTransitive();
-                break;
-            case "Symmetric":
-                frame = Constructor.frameSymmetric();
-                break;
-            case "System4":
-                frame = Constructor.frameSystem4();
-                break;
-            case "System5":
-                frame = Constructor.frameSystem5();
-                break;
-            case "Kripke":
-                frame = Constructor.frameKripke();
-                break;
-            case "New":
-                frame = queryUser(scanner);
-                break;
-        } 
+            switch(input) {
+                case "Alphabet":
+                    frame = Constructor.frameAlphabet();
+                    break;
+                case "Distinct":
+                    frame = Constructor.frameDistinguishing();
+                    break;
+                case "Muddy":
+                    frame = Constructor.frameMuddy();
+                    break;
+                case "Poker":
+                    frame = Constructor.framePoker();
+                    break;
+                case "Sunshine":
+                    frame = Constructor.frameSunshine();
+                    break;
+                case "Serial":
+                    frame = Constructor.frameSerial();
+                    break;
+                case "Reflexive":
+                    frame = Constructor.frameReflexive();
+                    break;
+                case "Transitive":
+                    frame = Constructor.frameTransitive();
+                    break;
+                case "Symmetric":
+                    frame = Constructor.frameSymmetric();
+                    break;
+                case "System4":
+                    frame = Constructor.frameSystem4();
+                    break;
+                case "System5":
+                    frame = Constructor.frameSystem5();
+                    break;
+                case "Kripke":
+                    frame = Constructor.frameKripke();
+                    break;
+                case "New":
+                    frame = queryUser(scanner);
+                    break;
+            } 
+
+        } while(frame == null);
 
         ArrayList<String> axioms = Checker.getAxioms(frame);
         String system = Checker.getSystem(axioms);
@@ -68,7 +71,7 @@ public class Command {
                 System.out.print("Formula: ");
                 input = scanner.nextLine();
                 if (input.length() == 0) { continue; }
-                if (input.toUpperCase().equals("END")) { exitProgram = true; }
+                if (input.toUpperCase().equals("EXIT")) { exitProgram = true; }
             
                 formula = Parser.getFormulaFromString(frame, input);
 
@@ -94,8 +97,11 @@ public class Command {
         ArrayList<World> worlds = new ArrayList<World>();
         ArrayList<Agent> agents = new ArrayList<Agent>();
 
-        System.out.println("What worlds exist?");
-        String[] list = scanner.nextLine().split(" ");
+        String[] list;
+        do {
+            System.out.println("What worlds exist?");
+            list = scanner.nextLine().split(" ");
+        } while(list.length == 1 && list[0].equals(""));
         
         for (int i = 0; i < list.length; i++) {
             worlds.add(new World(list[i]));
@@ -146,6 +152,9 @@ public class Command {
                 System.out.println("What worlds should " + world.toString() + " point to?");
                 
                 String[] relations = scanner.nextLine().split(" ");
+                if (relations.length == 1 && relations[0].equals("")) {
+                    continue;
+                }
                 for (int i = 0; i < relations.length; i++) {
 
                     World src = world;

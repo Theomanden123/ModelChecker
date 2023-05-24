@@ -109,10 +109,10 @@ public class Constructor {
     public static Frame frameDistinguishing() {
         Frame frame = new Frame();
 
-        World w1 = new World("w1");
-        World w2 = new World("w2");
-        World w3 = new World("w3");
-        World w4 = new World("w4");
+        World w1 = new World("W1");
+        World w2 = new World("W2");
+        World w3 = new World("W3");
+        World w4 = new World("W4");
 
         frame.addWorld(w1);
         frame.addWorld(w2);
@@ -286,14 +286,14 @@ public class Constructor {
         Agent b = new Agent("b"); frame.addAgent(b);
         Agent c = new Agent("c"); frame.addAgent(c);
 
-        World w1 = new World("w1"); frame.addWorld(w1);
-        World w2 = new World("w2"); frame.addWorld(w2);
-        World w3 = new World("w3"); frame.addWorld(w3);
-        World w4 = new World("w4"); frame.addWorld(w4);
-        World w5 = new World("w5"); frame.addWorld(w5);
-        World w6 = new World("w6"); frame.addWorld(w6);
-        World w7 = new World("w7"); frame.addWorld(w7);
-        World w8 = new World("w8"); frame.addWorld(w8);
+        World w1 = new World("W1"); frame.addWorld(w1);
+        World w2 = new World("W2"); frame.addWorld(w2);
+        World w3 = new World("W3"); frame.addWorld(w3);
+        World w4 = new World("W4"); frame.addWorld(w4);
+        World w5 = new World("W5"); frame.addWorld(w5);
+        World w6 = new World("W6"); frame.addWorld(w6);
+        World w7 = new World("W7"); frame.addWorld(w7);
+        World w8 = new World("W8"); frame.addWorld(w8);
 
         Literal ma = new Literal('a'); Formula ca = new Not(ma);
         Literal mb = new Literal('b'); Formula cb = new Not(mb);
