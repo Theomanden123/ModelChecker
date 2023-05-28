@@ -1,12 +1,10 @@
-import java.util.ArrayList;
-
 public class Constructor {
     
     public static Frame frameSunshine() {
 
         Frame frame = new Frame();
-        Agent a = new Agent("1");
-        Agent b = new Agent("2");
+        Agent a = new Agent("a");
+        Agent b = new Agent("b");
         frame.addAgent(a);
         frame.addAgent(b);
 
@@ -109,10 +107,10 @@ public class Constructor {
     public static Frame frameDistinguishing() {
         Frame frame = new Frame();
 
-        World w1 = new World("w1");
-        World w2 = new World("w2");
-        World w3 = new World("w3");
-        World w4 = new World("w4");
+        World w1 = new World("W1");
+        World w2 = new World("W2");
+        World w3 = new World("W3");
+        World w4 = new World("W4");
 
         frame.addWorld(w1);
         frame.addWorld(w2);
@@ -286,14 +284,14 @@ public class Constructor {
         Agent b = new Agent("b"); frame.addAgent(b);
         Agent c = new Agent("c"); frame.addAgent(c);
 
-        World w1 = new World("w1"); frame.addWorld(w1);
-        World w2 = new World("w2"); frame.addWorld(w2);
-        World w3 = new World("w3"); frame.addWorld(w3);
-        World w4 = new World("w4"); frame.addWorld(w4);
-        World w5 = new World("w5"); frame.addWorld(w5);
-        World w6 = new World("w6"); frame.addWorld(w6);
-        World w7 = new World("w7"); frame.addWorld(w7);
-        World w8 = new World("w8"); frame.addWorld(w8);
+        World w1 = new World("W1"); frame.addWorld(w1);
+        World w2 = new World("W2"); frame.addWorld(w2);
+        World w3 = new World("W3"); frame.addWorld(w3);
+        World w4 = new World("W4"); frame.addWorld(w4);
+        World w5 = new World("W5"); frame.addWorld(w5);
+        World w6 = new World("W6"); frame.addWorld(w6);
+        World w7 = new World("W7"); frame.addWorld(w7);
+        World w8 = new World("W8"); frame.addWorld(w8);
 
         Literal ma = new Literal('a'); Formula ca = new Not(ma);
         Literal mb = new Literal('b'); Formula cb = new Not(mb);
@@ -420,6 +418,7 @@ public class Constructor {
     }
 
     public static Frame frameSystem5() {
+
         Frame frame = new Frame();
         World x = new World("x");
         World y = new World("y");
@@ -445,9 +444,77 @@ public class Constructor {
         return frame;
     }
 
-    public static Frame frameMadeByUser(ArrayList<World> worlds) {
-        Frame frame = new Frame(worlds);
+    public static Frame frameKripke() {
+        Frame frame = new Frame();
+        World w1 = new World("w1");
+        World w2 = new World("w2");
+        World w3 = new World("w3");
+        World w4 = new World("w4");
+        World w5 = new World("w5");
+        World w6 = new World("w6");
+
+        frame.addWorld(w1);
+        frame.addWorld(w2);
+        frame.addWorld(w3);
+        frame.addWorld(w4);
+        frame.addWorld(w5);
+        frame.addWorld(w6);
+
+        Literal p = new Literal('p');
+        Literal q = new Literal('q');
+        Literal r = new Literal('r');
+
+        Not notP = new Not(p);
+        Not notQ = new Not(q);
+        Not notR = new Not(r);
+
+        w1.addProposition(p);
+        w1.addProposition(q);
+        w1.addProposition(notR);
+
+        w2.addProposition(r);
+        w2.addProposition(notP);
+        w2.addProposition(notQ);
+
+        w3.addProposition(q);
+        w3.addProposition(notP);
+        w3.addProposition(notR);
+
+        w4.addProposition(p);
+        w4.addProposition(r);
+        w4.addProposition(notQ);
+
+        w5.addProposition(p);
+        w5.addProposition(q);
+        w5.addProposition(r);
+
+        w6.addProposition(p);
+        w6.addProposition(notQ);
+        w6.addProposition(notR);
+
+        new Relation(w1, w2);
+        new Relation(w1, w3);
+        new Relation(w1, w6);
+
+        new Relation(w2, w1);
+        new Relation(w2, w3);
+
+        new Relation(w3, w1);
+        new Relation(w3, w2);
+        new Relation(w3, w4);
+        new Relation(w3, w5);
+
+        new Relation(w4, w3);
+
+        new Relation(w5, w3);
+        new Relation(w5, w6);
+
+        new Relation(w6, w1);
+        new Relation(w6, w5);
+
+
         return frame;
+
     }
 
 }

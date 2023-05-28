@@ -54,6 +54,10 @@ public class Frame {
     public void addAgent(Agent agent) {
         agents.add(agent);
     }
+    
+    public void addAgents(ArrayList<Agent> agents) {
+        this.agents = agents;
+    } 
 
     public Agent getAgent(String name) {
         for (Agent agent : agents) {
