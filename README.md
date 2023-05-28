@@ -1,7 +1,7 @@
 # Model Checker
 
 ## How to use the program
-When you run the java program it should write the following in your terminal: "Choose frame: ".
+When you run the Java program it should write the following in your terminal: "Choose frame: ".
 You have the option choosing between several prebuilt frames or specifying your own.
 
 You choose a prebuilt frame by typing the following commands:
@@ -20,9 +20,9 @@ You choose a prebuilt frame by typing the following commands:
 You can view the frames graphically in the project folder frameImages.
 *Note*: 
 - In the Muddy frame inorder to write M_a you have to write "a" instead, M_b = "b" and M_c = "c".  
-- In the Poker frame the upper-case "A", "Q" and "J" represent the card of Alice have and the lower-case is Bob's card.
+- In the Poker frame the upper-case "A", "Q" and "J" represent the card of Alice have and the lower-case "a", "q" and "j" is Bob's card. This frame was taken from Nina's lecture, in order to test the program while we were implementing it.
 
-To create a new frame you type "New". After this you be asked to specify what worlds exists, which you do by typing strings with spaces inbetween them. An example of a frame with 4 worlds could be: "W1 W2 W3 W4". Then you are asked, how many agents there exists, which you define with a single integer. When there are >= 2 agents, you are given the following message "What is the name of agent number 0 ?" here you specify a name for every agent. After that you are asked to specify which propositions are true at each world. An example could be: "p q r". All the negations are added to the worlds automatically. Then you are asked to define the outgoing relations for each world and what agents have access to it.
+To create a new frame you type "New". After this you are asked to specify what worlds exists, which you do by typing strings with spaces inbetween them. An example of a frame with 4 worlds could be: "W1 W2 W3 W4". Then you are asked, how many agents there exist, which you define with a single integer. When there are >= 2 agents, you are given the following message "What is the name of agent number 0 ?" here you specify a name for every agent. After that you are asked to specify which propositions are true at each world. An example could be: "p q r". All the negations are added to the worlds automatically. Then you are asked to define the outgoing relations for each world and what agents have access to it.
 
 After you have successfully chosen or built a frame the program prompts you to input a formula.
 Here is the syntax for writing a formula in our program:
@@ -41,7 +41,7 @@ Here is the syntax for writing a formula in our program:
 - Distributed knowledge: "D{a,b,c}(p)"
 - Public announcement: "\[!p\](p)"
 
-You can nest these formulas: "Not(And(Or(p,q), Imp(q,p)))"
+You can also nest these formulas: "Not(And(Or(p,q), Imp(q,p)))"
 
 Typing "Exit" will terminate the program.
 
