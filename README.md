@@ -44,3 +44,7 @@ Here is the syntax for writing a formula in our program:
 You can nest these formulas: "Not(And(Or(p,q), Imp(q,p)))"
 
 Typing "Exit" will terminate the program.
+
+## Authorship
+
+The majority of the code was written with the use of pair programming. But Victor was responsible for most of the code for the axiomatic functionality and Theo was mostly responsible for the Parser code. Other than that, we worked on everything else together.
