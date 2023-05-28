@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+// Parser.java handle String input conversation into logical objects.
+
 public class Parser {
 
     public static Formula getFormulaFromString(Frame frame, String input) {

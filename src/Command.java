@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// Command.java handle user input and control the output of the terminal.
+
 public class Command {
 
     public static void run() {
