@@ -1,3 +1,6 @@
+
+// Constructor.java is responsible for building every frame in the program.
+
 public class Constructor {
     
     public static Frame frameSunshine() {

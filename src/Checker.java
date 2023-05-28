@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+// Checker.java runs the label algorithm and performs every axiomatic check.
+
 public class Checker {
 
     public static void label(Frame frame, Formula formula, ArrayList<World> blacklist) {
