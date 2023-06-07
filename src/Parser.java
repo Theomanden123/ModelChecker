@@ -40,16 +40,15 @@ public class Parser {
             argument = input.substring(index1 + 1, input.length());
             arguments = getArguments(argument);
 
-
             if (operator.charAt(0) == 'K') {
                 String name = operator.substring(1, operator.length());
                 agent = frame.getAgent(name);
                 operator = "" + operator.charAt(0);
             }
 
-            if (operator.charAt(0) == 'E' || 
-                operator.charAt(0) == 'C' || 
-                operator.charAt(0) == 'D') {
+            if (operator.charAt(0) == 'E' && operator.charAt(1) == '{'|| 
+                operator.charAt(0) == 'C' && operator.charAt(1) == '{'|| 
+                operator.charAt(0) == 'D' && operator.charAt(1) == '{') {
 
                 String rest = operator.substring(2, operator.length() - 1);
                 String[] names = rest.split(",");
